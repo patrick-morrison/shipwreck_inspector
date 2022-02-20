@@ -3,6 +3,7 @@ from re import template
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Report, Site
@@ -13,9 +14,11 @@ from .models import Report, Site
 def home(request):
     return render(request, 'wrecks/home.html')
 
-def sites(request):
-    sites = Site.objects.all()
-    return render(request, 'sites/sites.html', {"Sites":sites})
+class sites(generic.ListView):
+    model = Site
+    paginate_by = 8
+    template_name = "sites/sites.html"
+
 
 def reports(request):
     return render(request, 'sites/reports.html')
