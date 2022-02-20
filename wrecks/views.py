@@ -14,7 +14,8 @@ def home(request):
     return render(request, 'wrecks/home.html')
 
 def sites(request):
-    return render(request, 'sites/sites.html')
+    sites = Site.objects.all()
+    return render(request, 'sites/sites.html', {"Sites":sites})
 
 def reports(request):
     return render(request, 'sites/reports.html')

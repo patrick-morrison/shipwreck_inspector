@@ -4,17 +4,17 @@ from django.contrib.auth.models import User
 class Site(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
-    sunk = models.CharField(max_length=255)
-    built = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-    construction = models.CharField(max_length=255)
-    owner = models.CharField(max_length=255)
-    size = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
-    underwater = models.CharField(max_length=255)
-    sinking = models.CharField(max_length=255)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    sunk = models.CharField(max_length=255, null=True, blank=True)
+    built = models.CharField(max_length=255, null=True, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    construction = models.CharField(max_length=255, null=True, blank=True)
+    owner = models.CharField(max_length=255, null=True, blank=True)
+    size = models.CharField(max_length=255, null=True, blank=True)
+    location = models.CharField(max_length=255, null=True, blank=True)
+    underwater = models.CharField(max_length=255, null=True, blank=True)
+    sinking = models.CharField(max_length=255, null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name + " " + self.built + "-" + self.sunk
