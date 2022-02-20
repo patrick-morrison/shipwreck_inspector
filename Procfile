@@ -1,0 +1,1 @@
+web: gunicorn shipwreck_inspector.wsgi --log-file -
