@@ -25,8 +25,10 @@ class sites(generic.ListView):
     template_name = "sites/sites.html"
 
 
-def reports(request):
-    return render(request, 'sites/reports.html')
+class reports(generic.ListView):
+    model = Report
+    paginate_by = 20
+    template_name = "sites/reports.html"
 
 
 class SignUp(generic.CreateView):
@@ -46,7 +48,7 @@ class SignUp(generic.CreateView):
 class CreateSite(generic.CreateView):
     model = Site
     fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
-              'underwater', 'sinking', 'latitude', 'longitude']
+              'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption']
     template_name = 'sites/create_site.html'
     success_url = reverse_lazy('home')
 
@@ -74,7 +76,7 @@ class UpdateSite(generic.UpdateView):
     model = Site
     template_name = 'sites/update_site.html'
     fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
-              'underwater', 'sinking', 'latitude', 'longitude']
+              'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption']
     success_url = reverse_lazy('sites')
 
 
@@ -98,6 +100,8 @@ class DeleteSite(generic.DeleteView):
 def CreateReport(request, pk):
     form = ReportForm()
 
+    Site_id = Site.objects.get(pk=pk)
+
     if request.method == 'POST':
         filled_form = ReportForm(request.POST)
         if filled_form.is_valid():
@@ -113,7 +117,7 @@ def CreateReport(request, pk):
             report.save()
             return redirect('detail_site', pk)
 
-    return render(request, 'sites/create_report.html', {'form': form})
+    return render(request, 'sites/create_report.html', {'form': form, 'site':Site_id})
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

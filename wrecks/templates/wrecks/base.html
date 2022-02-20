@@ -36,13 +36,13 @@
                 <a class="nav-link active" aria-current="page" href="{%url 'sites' %}">Sites</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Reports</a>
+                <a class="nav-link active" aria-current="page" href="{%url 'reports' %}">Reports</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Publications</a>
+                <a class="nav-link disabled" aria-current="page" href="#">Publications</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">People</a>
+                <a class="nav-link disabled aria-current="page" href="#">People</a>
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item dropdown">

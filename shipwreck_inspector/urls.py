@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = 'home'),
     path('sites', views.sites.as_view(), name = 'sites'),
-    path('reports', views.reports, name = 'reports'),
+    path('reports', views.reports.as_view(), name = 'reports'),
     # AUTH
     path('signup', views.SignUp.as_view(), name = 'signup'),
     path('login', auth_views.LoginView.as_view(), name = 'login'),
