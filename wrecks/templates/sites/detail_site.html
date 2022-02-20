@@ -58,26 +58,56 @@
       </tr>
     </tbody>
   </table>
+<div class="float-right">
+  <a class = 'text-muted' href="{% url 'create_report' site.id %}">Edit this entry</a>
+</div><br>
+
+
+
+<h3>Reports <a href="{% url 'create_report' site.id %}" class="btn btn-primary my-2">Add</a></h2>
+
+  
+
+<table class="table">
+  <caption>Showing {{nReportsDisp}} of {{nReports}} reports.
+    <a href="">Click to see all</a> </caption>
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in Reports %}
+    <tr>
+      <th scope="row">{{report.date }}</th>
+      <td>{{report.title }}</td>
+      <td>{{report.user}}</td>
+    </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+</br>
 
 <div id="map"></div>
 
 </br>
 
-<p class = 'text-muted'>Added by {{ site.user.username }}</p>
-
-<script>
-    var map = L.map('map').setView([{{ site.latitude }}, {{ site.longitude }}], 12);
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 14,
-    tileSize: 512,
-    zoomOffset: -1,}).addTo(map);
-var marker = L.marker([{{ site.latitude }}, {{ site.longitude }}]).addTo(map);
-marker.bindTooltip("<b>{{ site.name }} {{ site.built }} - {{ site.sunk }}");
-</script>
-
 </div>
 
 
+<script>
+  var map = L.map('map').setView([{{ site.latitude }}, {{ site.longitude }}], 12);
+  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 14,
+  tileSize: 512,
+  zoomOffset: -1,}).addTo(map);
+var marker = L.marker([{{ site.latitude }}, {{ site.longitude }}]).addTo(map);
+marker.bindTooltip("<b>{{ site.name }} {{ site.built }} - {{ site.sunk }}");
+</script>
 
 {% endblock %}

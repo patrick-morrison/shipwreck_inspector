@@ -8,11 +8,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Report, Site
 
+from .forms import ReportForm
+
 
 # Create your views here.
 
 def home(request):
     return render(request, 'wrecks/home.html')
+
 
 class sites(generic.ListView):
     model = Site
@@ -23,6 +26,7 @@ class sites(generic.ListView):
 def reports(request):
     return render(request, 'sites/reports.html')
 
+
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('home')
@@ -30,15 +34,17 @@ class SignUp(generic.CreateView):
 
     def form_valid(self, form):
         view = super(SignUp, self).form_valid(form)
-        username, password = form.cleaned_data.get('username'),form.cleaned_data.get('password1')
-        user = authenticate(username = username, password = password)
+        username, password = form.cleaned_data.get(
+            'username'), form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
         login(self.request, user)
         return view
 
 
 class CreateSite(generic.CreateView):
     model = Site
-    fields = ['name', 'sunk', 'built', 'owner', 'size', 'location', 'underwater', 'sinking', 'latitude', 'longitude']
+    fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
+              'underwater', 'sinking', 'latitude', 'longitude']
     template_name = 'sites/create_site.html'
     success_url = reverse_lazy('home')
 
@@ -48,28 +54,61 @@ class CreateSite(generic.CreateView):
         return redirect('home')
 
 
-class DetailSite(generic.DeleteView):
+class DetailSite(generic.DetailView):
     model = Site
     template_name = 'sites/detail_site.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reps = Report.objects.filter(site=context['site'])
+        reps_filtered = reps.order_by('-date')[0:10]
+        context['Reports'] = reps_filtered
+        context['nReports'] = reps.count()
+        context['nReportsDisp'] = reps_filtered.count()
+        return context
+
 
 class UpdateSite(generic.UpdateView):
     model = Site
     template_name = 'sites/update_site.html'
-    fields = ['name', 'sunk', 'built', 'owner', 'size', 'location', 'underwater', 'sinking', 'latitude', 'longitude']
+    fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
+              'underwater', 'sinking', 'latitude', 'longitude']
     success_url = reverse_lazy('sites')
+
 
 class DeleteSite(generic.DeleteView):
     model = Site
     template_name = 'sites/delete_site.html'
     success_url = reverse_lazy('sites')
 
-class CreateReport(generic.CreateView):
-    model = Report
-    fields = ['title', 'date', 'site']
-    template_name = 'sites/create_report.html'
-    success_url = reverse_lazy('home')
+# class CreateReport(generic.CreateView):
+#    model = Report
+#    fields = ['title', 'authors', 'date', 'site']
+#    template_name = 'sites/create_report.html'
+#    success_url = reverse_lazy('home')
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        super(CreateReport, self).form_valid(form)
-        return redirect('home')
+#    def form_valid(self, form):
+#        form.instance.user = self.request.user
+#        super(CreateReport, self).form_valid(form)
+#        return redirect('home')
+
+
+def CreateReport(request, pk):
+    form = ReportForm()
+
+    if request.method == 'POST':
+        filled_form = ReportForm(request.POST)
+        if filled_form.is_valid():
+            report = Report()
+            report.title = filled_form.cleaned_data['title']
+            report.date = filled_form.cleaned_data['date']
+            report.file = filled_form.cleaned_data['file']
+            report.site = Site.objects.get(pk=pk)
+            report.user = request.user
+            report.save()
+            authors = filled_form.cleaned_data['authors']
+            report.authors.set(authors)
+            report.save()
+            return redirect('detail_site', pk)
+
+    return render(request, 'sites/create_report.html', {'form': form})
