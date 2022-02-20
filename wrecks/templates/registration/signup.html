@@ -5,12 +5,23 @@
     <br/>
     <h2>Create an account</h2>
     <p>Creating an account lets you add inspection reports.</p>
-    <form method = 'post'>
+    <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}' style="max-width: 400px;">
+        <form method = 'post'>
+    
+            {% csrf_token %}
+    
+            {% load widget_tweaks %}
+        
+            {%for field in form%}
+            <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}'>
+                {{field.errors}}
+                {{field.label_tag}}
+                {%render_field field class='form-control'%}
+            
+            </div>
 
-        {% csrf_token %}
-
-        {{form.as_p}}
-
+            {%endfor%}
+            <br>
         <button type="submit" class='btn btn-primary'>Sign up</button>
 
     </form>
