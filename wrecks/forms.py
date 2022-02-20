@@ -1,4 +1,4 @@
-from .models import Report
+from .models import Report, Site
 from dal import autocomplete
 from django import forms
 
@@ -14,3 +14,12 @@ class ReportForm(forms.ModelForm):
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
             }
 
+class SiteForm(forms.ModelForm):
+    class Meta:
+        model = Site
+        fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
+              'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption']
+        widgets = {
+            'underwater':forms.Textarea,
+            'sinking':forms.Textarea,
+            }

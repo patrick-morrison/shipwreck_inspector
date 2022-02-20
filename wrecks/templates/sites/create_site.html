@@ -1,19 +1,27 @@
 {% extends 'wrecks/base.html' %}
 {% block content %}
 
-<br>
-<div class="container">
+<div class = container style = "max-width:45em">
 <div>
-    <h2> Add a site</h2>
-
+    <br><h2> Add a site</h2>
+<div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}'>
 <form method = 'post'>
 
     {%csrf_token%}
-    {{form.as_p}}
+    {% load widget_tweaks %}
+    {{ form.media }}
+    
+    {%for field in form%}
+        {{field.errors}}
+        {{field.label_tag}}
+        {%render_field field class='form-control'%}
+        
+    {%endfor%}
+    <br>
     <button type="submit" class = 'btn btn-primary'>Create</button>
     
 </form>
-
+</div>
 </div>
 </div>
 

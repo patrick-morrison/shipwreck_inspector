@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Report, Site, Person
 
-from .forms import ReportForm
+from .forms import ReportForm, SiteForm
 from dal import autocomplete
 
 
@@ -47,8 +47,7 @@ class SignUp(generic.CreateView):
 
 class CreateSite(generic.CreateView):
     model = Site
-    fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
-              'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption']
+    form_class = SiteForm
     template_name = 'sites/create_site.html'
     success_url = reverse_lazy('home')
 
@@ -75,8 +74,7 @@ class DetailSite(generic.DetailView):
 class UpdateSite(generic.UpdateView):
     model = Site
     template_name = 'sites/update_site.html'
-    fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
-              'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption']
+    form_class = SiteForm
     success_url = reverse_lazy('sites')
 
 

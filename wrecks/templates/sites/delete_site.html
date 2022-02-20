@@ -1,19 +1,36 @@
 {% extends 'wrecks/base.html' %}
 {% block content %}
 
-<div>
-    <h2>Are you sure you want to delete {{site.name}}</h2>
+<div class = container style = "max-width:45em">
+</br>
+    <h2>Are you sure you want to delete {{site.name}}?</h2>
+    <p>You are not able to delete a site with reports associated.</p>
 
+    <a href = {% url 'detail_site' site.id %} class ='btn btn-secondary'> Back to site page </a>
+<br></br></br>
 <form method = 'post'>
 
     {%csrf_token%}
-    {{form.as_p}}
-    <button type="submit" class = 'btn btn-danger'>Delete</button>
+    <label for="textField">Type site name before you can delete</label>
+    <input type="text" class="form-control" placeholder="{{site.name}}" name="textField" /></br>
+    <button type="submit" class = 'btn btn-danger'>Confirm Delete</button>
     
 </form>
-
-<a href = {% url 'detail_site' site.id %} class ='btn btn-secondary'> View {{site.name}} </a>
+ </a>
 
 </div>
+
+<script>
+
+$(document).ready(function() {
+     $(':input[type="submit"]').prop('disabled', true);
+     $('input[type="text"]').keyup(function() {
+        if($(this).val() == '{{site.name}}') {
+           $(':input[type="submit"]').prop('disabled', false);
+        }
+     });
+ });
+
+</script>
 
 {% endblock %}
