@@ -1,0 +1,20 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+
+<div class = 'container'>
+    <br/>
+    <h2>Create an account</h2>
+    <p>Creating an account lets you add inspection reports.</p>
+    <form method = 'post'>
+
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <button type="submit" class='btn btn-primary'>Sign up</button>
+
+    </form>
+
+</div>
+
+{% endblock %}
