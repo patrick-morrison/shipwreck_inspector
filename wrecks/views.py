@@ -6,9 +6,11 @@ from django.views import generic
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from .models import Report, Site
+from .models import Report, Site, Person
 
 from .forms import ReportForm
+from dal import autocomplete
+
 
 
 # Create your views here.
@@ -112,3 +114,15 @@ def CreateReport(request, pk):
             return redirect('detail_site', pk)
 
     return render(request, 'sites/create_report.html', {'form': form})
+
+class PersonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Person.objects.none()
+
+        qs = Person.objects.all()
+
+        if self.q:
+            qs = qs.filter(first_name__icontains=self.q) | qs.filter(last_name__icontains=self.q)
+
+        return qs

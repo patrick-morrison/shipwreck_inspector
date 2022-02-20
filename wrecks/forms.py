@@ -1,4 +1,5 @@
 from .models import Report
+from dal import autocomplete
 from django import forms
 
 class DateInput(forms.DateInput):
@@ -9,5 +10,7 @@ class ReportForm(forms.ModelForm):
         model = Report
         fields = ['title', 'date', 'authors', 'file']
         widgets = {
-            'date': DateInput}
+            'date': DateInput,
+            'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            }
 

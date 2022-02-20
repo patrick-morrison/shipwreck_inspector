@@ -5,6 +5,7 @@ coverage==6.3.1
 dj-database-url==0.5.0
 Django==3.2.12
 django-appconf==1.0.5
+django-autocomplete-light==3.9.1
 django-heroku==0.3.1
 django-widget-tweaks==1.4.12
 gunicorn==20.1.0
