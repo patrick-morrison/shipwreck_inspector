@@ -15,6 +15,8 @@ class Site(models.Model):
     sinking = models.CharField(max_length=255, null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+    image = models.ImageField(upload_to='hero_images/', null=True, blank=True)
+    image_caption = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name + " " + self.built + "-" + self.sunk
