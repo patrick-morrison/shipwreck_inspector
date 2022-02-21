@@ -2,6 +2,7 @@ from django.views import generic
 from ..models import Publication
 from ..forms import PublicationForm
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 class publications(generic.ListView):
     model = Publication
@@ -12,11 +13,16 @@ class CreatePublications(generic.CreateView):
     model = Publication
     form_class = PublicationForm
     template_name = 'meta/create_publication.html'
-    success_url = reverse_lazy('publications')
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        obj.save()        
+        return redirect(reverse_lazy('publications'))
 
 class DetailPublication(generic.DetailView):
     model = Publication
     template_name = 'meta/detail_publication.html'
+    
 
 class UpdatePublication(generic.UpdateView):
     model = Publication
