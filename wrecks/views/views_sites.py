@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -10,6 +10,9 @@ class sites(generic.ListView):
     model = Site
     paginate_by = 12
     template_name = "sites/sites.html"
+
+def sites_map(request):
+    return render(request, 'sites/sites_map.html')
 
 class CreateSite(generic.CreateView):
     model = Site
