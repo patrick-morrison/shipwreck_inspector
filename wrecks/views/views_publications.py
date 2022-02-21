@@ -43,5 +43,5 @@ class UpdatePublication(generic.UpdateView):
 
 class DeletePublication(generic.DeleteView):
     model = Publication
-    template_name = 'sites/delete_publication.html'
+    template_name = 'meta/delete_publication.html'
     success_url = reverse_lazy('publications')
