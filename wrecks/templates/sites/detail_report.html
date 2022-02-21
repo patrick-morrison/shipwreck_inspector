@@ -16,6 +16,9 @@
 
 <p>{{ report.abstract }}</p>
 
+{% if user.is_authenticated %}
+<p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_report' report.id %}">Edit this report</a></p>
+{% endif %}
 
 {%if report.file%}
 <h5>Attachment:</h5>
@@ -23,6 +26,5 @@
 <a href="{{ report.file.url }}" download  class="btn btn-dark float-right">Download</a>
 <br>
 {%endif%}
-<p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_report' report.id %}">Edit this report</a></p>
 
 {% endblock %}
