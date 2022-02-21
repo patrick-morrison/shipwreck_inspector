@@ -19,7 +19,7 @@ class ReportForm(forms.ModelForm):
 class SiteForm(forms.ModelForm):
     class Meta:
         model = Site
-        fields = ['name', 'sunk', 'built', 'owner', 'size', 'location',
+        fields = ['name', 'sunk', 'built', 'owner', 'size', 'location', 'description', 'construction',
               'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption']
         widgets = {
             'underwater':forms.Textarea,
