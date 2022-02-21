@@ -70,7 +70,7 @@ class CreateSite(generic.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         super(CreateSite, self).form_valid(form)
-        return redirect('home')
+        return redirect(reverse_lazy('detail_site', kwargs={'pk': self.object.pk}))
 
 
 class DetailSite(generic.DetailView):
@@ -91,7 +91,9 @@ class UpdateSite(generic.UpdateView):
     model = Site
     template_name = 'sites/update_site.html'
     form_class = SiteForm
-    success_url = reverse_lazy('sites')
+
+    def get_success_url(self):
+        return reverse_lazy('detail_site', kwargs={'pk': self.object.pk})
 
 
 class DeleteSite(generic.DeleteView):
@@ -141,12 +143,14 @@ class UpdateReport(generic.UpdateView):
     model = Report
     template_name = 'sites/update_report.html'
     form_class = ReportForm
-    success_url = reverse_lazy('sites')
+    def get_success_url(self):
+        return reverse_lazy('detail_report', kwargs={'pk': self.object.pk})
 
 class DeleteReport(generic.DeleteView):
     model = Report
     template_name = 'sites/delete_report.html'
-    success_url = reverse_lazy('sites')
+    def get_success_url(self):
+        return reverse_lazy('detail_site', kwargs={'pk': self.object.site.pk})
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

@@ -19,7 +19,10 @@ class Site(models.Model):
     image_caption = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.name + " " + self.built + "-" + self.sunk
+        if self.sunk is None:
+            return self.name
+        else:
+            return self.name + " (" + self.sunk + ')'
 
     def last_report(self):
         try:

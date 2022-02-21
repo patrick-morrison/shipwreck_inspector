@@ -23,8 +23,10 @@
         <div class="col">
             <div class="card shadow-sm" style="max-width: 23rem;">
             <div class="card-body">
-                <h5 class="card-title">{{site.name}} ({{site.built}} - {{site.sunk}})</h5>
-                <p class="card-text">{{site.description}}</p>
+                <h5 class="card-title">{{site}}</h5>
+                <p class="card-text">{{site.description}}, {{site.construction}} </p>
+                {% if site.built%}<p class="card-text">Built {{site.built}}</p>{%endif%}
+                {% if site.location%}<p class="card-text">{{site.location}}</p>{%endif%}
                 <div class="d-flex justify-content-between align-items-center">
                 <div>
                 <a href="{% url 'detail_site' site.id %}" class="btn btn-sm btn-outline-secondary">View</a>
