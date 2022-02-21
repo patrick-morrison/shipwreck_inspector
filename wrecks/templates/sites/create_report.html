@@ -3,7 +3,7 @@
 <div class = 'container'>
     <br>
     <h2>Add report for {{site.name}} {{site.sunk}}</h2>
-<form method = 'post'>
+<form enctype='multipart/form-data' method = 'post'>
 
     {%csrf_token%}
     {% load widget_tweaks %}

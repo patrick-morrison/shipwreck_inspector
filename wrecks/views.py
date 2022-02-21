@@ -119,7 +119,7 @@ def CreateReport(request, pk):
     Site_id = Site.objects.get(pk=pk)
 
     if request.method == 'POST':
-        filled_form = ReportForm(request.POST)
+        filled_form = ReportForm(request.POST, request.FILES)
         if filled_form.is_valid():
             report = Report()
             report.title = filled_form.cleaned_data['title']
