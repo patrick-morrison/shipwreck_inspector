@@ -36,9 +36,10 @@ urlpatterns = [
     path('sites/<int:pk>/delete', views.DeleteSite.as_view(), name = 'delete_site'),
     #Reports
     path('sites/<int:pk>/report', views.CreateReport, name = 'create_report'),
-    #path('report/<int:pk>', views.DetailReport.as_view(), name = 'detail_report'),
-    #path('report/<int:pk>/edit', views.UpdateReport, name = 'update_report'),
-    #path('report/<int:pk>/delete', views.DeleteReport.as_view(), name = 'delete_report'),
+    path('report/<int:pk>', views.DetailReport.as_view(), name = 'detail_report'),
+    path('report/<int:pk>/edit', views.UpdateReport.as_view(), name = 'update_report'),
+    path('report/<int:pk>/delete', views.DeleteReport.as_view(), name = 'delete_report'),
+    path('sites/<int:pk>/reports', views.site_reports.as_view(), name = 'site_reports'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

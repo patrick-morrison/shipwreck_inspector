@@ -2,7 +2,10 @@
 {% block content %}
 
 <br><div class="container">
-<h2>Reports</h2>
+<h3>Reports</h3>
+
+<p class="lead"><a href = '{% url 'detail_site' Site.id %}' class="link-dark"'>{{ Site }}</a>
+    {{ report.date }}</p>
 </div>
 
 <div class="album py-5 bg-light">

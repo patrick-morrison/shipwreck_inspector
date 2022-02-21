@@ -1,19 +1,6 @@
 {% extends 'wrecks/base.html' %}
 {% block content %}
 
-<style>
-    #map { height: 400px; }
-</style>
-
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin=""></script>
-</head>
-
 <div class = container style = "max-width:45em">
 </br>
 <h2>{{ site.name }} {{ site.built }} - {{ site.sunk }}</h2>
@@ -121,14 +108,12 @@
 </div><br>
 
 
-
 <h3>Reports <a href="{% url 'create_report' site.id %}" class="btn btn-primary my-2">Add</a></h2>
 
-  
 
 <table class="table">
   <caption>Showing {{nReportsDisp}} of {{nReports}} reports.
-    <a href="">Click to see all</a> </caption>
+    <a href="{% url 'site_reports' site.id %}" class="link-secondary">Click to see all</a> </caption>
   <thead>
     <tr>
       <th scope="col">Date</th>
@@ -140,7 +125,7 @@
     {% for report in Reports %}
     <tr>
       <th scope="row">{{report.date }}</th>
-      <td>{{report.title }}</td>
+      <td><a href="{% url 'detail_report' report.id %}" class="link-dark">{{report.title }}</a></td>
       <td>{{report.user}}</td>
     </tr>
     {% endfor %}
@@ -149,13 +134,24 @@
 </table>
 
 </br>
+{% if site.latitude and site.longitude %}
+<style>
+  #map { height: 400px; }
+</style>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+ crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
+</head>
 
 <div id="map"></div>
-
 </br>
 
 </div>
-
 
 <script>
   var map = L.map('map').setView([{{ site.latitude }}, {{ site.longitude }}], 12);
@@ -167,5 +163,6 @@
 var marker = L.marker([{{ site.latitude }}, {{ site.longitude }}]).addTo(map);
 marker.bindTooltip("<b>{{ site.name }} {{ site.built }} - {{ site.sunk }}");
 </script>
+{% endif %}
 
 {% endblock %}

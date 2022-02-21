@@ -1,6 +1,6 @@
 from pipes import Template
 from re import template
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -29,6 +29,23 @@ class reports(generic.ListView):
     model = Report
     paginate_by = 20
     template_name = "sites/reports.html"
+
+class site_reports(generic.ListView):
+    paginate_by = 20
+    template_name = "sites/site_reports.html"
+
+    def get_queryset(self):
+        self.site = get_object_or_404(Site, id=self.kwargs['pk'])
+        return Report.objects.filter(site=self.site).order_by('-date')
+
+    def get_context_data(self, **kwargs):
+        self.site = get_object_or_404(Site, id=self.kwargs['pk'])
+        context = super().get_context_data(**kwargs)
+        reps = Report.objects.filter(site=self.site)
+        context['nReports'] = reps.count()
+        context['Site'] = self.site
+
+        return context
 
 
 class SignUp(generic.CreateView):
@@ -116,6 +133,21 @@ def CreateReport(request, pk):
             return redirect('detail_site', pk)
 
     return render(request, 'sites/create_report.html', {'form': form, 'site':Site_id})
+
+class DetailReport(generic.DetailView):
+    model = Report
+    template_name = 'sites/detail_report.html'
+
+class UpdateReport(generic.UpdateView):
+    model = Report
+    template_name = 'sites/update_report.html'
+    form_class = ReportForm
+    success_url = reverse_lazy('sites')
+
+class DeleteReport(generic.DeleteView):
+    model = Report
+    template_name = 'sites/delete_report.html'
+    success_url = reverse_lazy('sites')
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
