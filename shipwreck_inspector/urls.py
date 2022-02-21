@@ -43,10 +43,10 @@ urlpatterns = [
     path('sites/<int:pk>/reports', views.site_reports.as_view(), name = 'site_reports'),
     #Publications
     path('publications', views.publications.as_view(), name = 'publications'),
-    path('publications/create', views.CreatePublications.as_view(), name = 'create_publication'),
+    path('publications/create', views.CreatePublication, name = 'create_publication'),
     path('publications/<int:pk>', views.DetailPublication.as_view(), name = 'detail_publication'),
     path('publications/<int:pk>/edit', views.UpdatePublication.as_view(), name = 'update_publication'),
-    path('publications/<int:pk>/delete', views.DeleteReport.as_view(), name = 'delete_publication'),
+    path('publications/<int:pk>/delete', views.DeletePublication.as_view(), name = 'delete_publication'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
