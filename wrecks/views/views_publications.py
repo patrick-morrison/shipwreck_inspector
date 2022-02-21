@@ -18,12 +18,14 @@ def CreatePublication(request):
             pub = Publication()
             pub.title = filled_form.cleaned_data['title']
             pub.date = filled_form.cleaned_data['date']
+            pub.abstract = filled_form.cleaned_data['abstract']
             pub.user = request.user
             pub.file = filled_form.cleaned_data['file']
             pub.save()
+            pub.site.set(filled_form.cleaned_data['site'])
             pub.authors.set(filled_form.cleaned_data['authors'])
             pub.project.set(filled_form.cleaned_data['project'])
-            pub.reports.set(filled_form.cleaned_data['reports'])
+            pub.report.set(filled_form.cleaned_data['report'])
             pub.save()
             return redirect('detail_publication', pub.pk)
 
