@@ -23,23 +23,30 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = 'home'),
-    path('sites', views.sites.as_view(), name = 'sites'),
-    path('reports', views.reports.as_view(), name = 'reports'),
+    path('sites.json', views.sites_json, name = 'sites_json'),
     # AUTH
     path('signup', views.SignUp.as_view(), name = 'signup'),
     path('login', auth_views.LoginView.as_view(), name = 'login'),
     path('logout', auth_views.LogoutView.as_view(), name = 'logout'),
     #Sites
+    path('sites', views.sites.as_view(), name = 'sites'),
     path('sites/create', views.CreateSite.as_view(), name = 'create_site'),
     path('sites/<int:pk>', views.DetailSite.as_view(), name = 'detail_site'),
     path('sites/<int:pk>/edit', views.UpdateSite.as_view(), name = 'update_site'),
     path('sites/<int:pk>/delete', views.DeleteSite.as_view(), name = 'delete_site'),
     #Reports
+    path('reports', views.reports.as_view(), name = 'reports'),
     path('sites/<int:pk>/report', views.CreateReport, name = 'create_report'),
     path('report/<int:pk>', views.DetailReport.as_view(), name = 'detail_report'),
     path('report/<int:pk>/edit', views.UpdateReport.as_view(), name = 'update_report'),
     path('report/<int:pk>/delete', views.DeleteReport.as_view(), name = 'delete_report'),
     path('sites/<int:pk>/reports', views.site_reports.as_view(), name = 'site_reports'),
+    #Publications
+    path('publications', views.publications.as_view(), name = 'publications'),
+    path('publications/create', views.CreatePublications.as_view(), name = 'create_publication'),
+    path('publications/<int:pk>', views.DetailPublication.as_view(), name = 'detail_publication'),
+    path('publications/<int:pk>/edit', views.UpdatePublication.as_view(), name = 'update_publication'),
+    path('publications/<int:pk>/delete', views.DeleteReport.as_view(), name = 'delete_publication'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
@@ -54,5 +61,15 @@ urlpatterns += [
         'project-autocomplete/',
         views.ProjectAutocomplete.as_view(),
         name='project-autocomplete',
+    ),
+        path(
+        'site-autocomplete/',
+        views.SiteAutocomplete.as_view(),
+        name='site-autocomplete',
+    ),
+        path(
+        'report-autocomplete/',
+        views.ReportAutocomplete.as_view(),
+        name='report-autocomplete',
     ),
 ]

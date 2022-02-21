@@ -107,6 +107,28 @@
   <a class = 'text-muted' href="{% url 'update_site' site.id %}">Edit this entry</a>
 </div><br>
 
+{%if Publications %}
+<h3>Publications</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for publication in Publications %}
+    <tr>
+      <th scope="row">{{publication.date }}</th>
+      <td><a href="{% url 'detail_publication' publication.id %}" class="link-dark">{{publication.title }}</a></td>
+    </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+{%endif%}
+
 
 <h3>Reports <a href="{% url 'create_report' site.id %}" class="btn btn-primary my-2">Add</a></h2>
 
@@ -154,14 +176,45 @@
 </div>
 
 <script>
-  var map = L.map('map').setView([{{ site.latitude }}, {{ site.longitude }}], 12);
-  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 14,
-  tileSize: 512,
-  zoomOffset: -1,}).addTo(map);
+  var map = L.map('map').setView([{{ site.latitude }}, {{ site.longitude }}], 10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 14
+}).addTo(map);
+
 var marker = L.marker([{{ site.latitude }}, {{ site.longitude }}]).addTo(map);
-marker.bindTooltip("<b>{{ site.name }} {{ site.built }} - {{ site.sunk }}");
+marker.bindTooltip("<b>{{ site.name }} {{ site.sunk }}",
+  {permanent: true}).openTooltip();
+
+var geojsonMarkerOptions = {
+    radius: 4,
+    fillColor: "#2D85CD",
+    color: "#EDEAE5",
+    weight: 1,
+    opacity: .1,
+    fillOpacity: 0.8
+};
+
+var wrecks = new L.geoJSON("", {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).bindTooltip(function (layer) {
+  return layer.feature.properties.name + " " + layer.feature.properties.sunk});
+
+wrecks.addTo(map);
+
+$.ajax({
+dataType: "json",
+url: "{% url 'sites_json'%}",
+success: function(data) {
+    $(data.features).each(function(key, data) {
+      wrecks.addData(data);
+    });
+}
+}).error(function() {});
+
 </script>
 {% endif %}
 

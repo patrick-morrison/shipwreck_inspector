@@ -1,4 +1,4 @@
-from .models import Report, Site
+from .models import Publication, Report, Site
 from dal import autocomplete
 from django import forms
 
@@ -25,3 +25,18 @@ class SiteForm(forms.ModelForm):
             'underwater':forms.Textarea,
             'sinking':forms.Textarea,
             }
+
+class PublicationForm(forms.ModelForm):
+    class Meta:
+        model = Publication
+        fields = ['title', 'date', 'authors', 'site', 'project','reports','abstract',  'file',]
+        widgets = {
+            'date': DateInput,
+            'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            'project': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
+            'site': autocomplete.ModelSelect2Multiple(url='site-autocomplete'),
+            'reports': autocomplete.ModelSelect2Multiple(url='report-autocomplete'),
+            'abstract':forms.Textarea,
+            }
+
+            

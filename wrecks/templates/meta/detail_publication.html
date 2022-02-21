@@ -1,0 +1,69 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+
+<div class = container style = "max-width:45em">
+</br>
+<h2>{{ publication.title }} </h2>
+<p class="lead">{{ report.site }}</a>
+     {{ report.date }}</p>
+
+<div>
+    <h5>Authors</h2>
+    {% for author in publication.authors.all %}
+    <button type="button" class="btn btn-outline-dark btn-sm">{{ author }}</button>
+    {% endfor %}
+</div>
+
+  <br>
+
+<p>{{ publication.abstract }}</p>
+
+
+{%if publication.file%}
+<h5>Attachment:</h5>
+<p>{{ publication.file.name }}</p>
+<a href="{{ publication.file.url }}" download  class="btn btn-dark float-right">Download</a>
+<br>
+{%endif%}
+<p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_publication' publication.id %}">Edit this publication</a></p>
+
+{% if publication.project.all %}
+<div>    
+<h5>Projects</h2>
+   {% for project in publication.project.all %}
+   <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
+   {% endfor %}
+</div> <br>
+{% endif %}
+
+{% if publication.reports.all %}
+<div>    
+<h5>Site Reports</h2>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Title</th>
+        <th scope="col">Site</th>
+        <th scope="col">Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for report in publication.reports.all %}
+      <tr>
+        <th scope="row">{{report.date }}</th>
+        <td><a href="{% url 'detail_report' report.id %}" class="link-dark">{{report.title }}</a></td>
+        <td>{{report.site}}</td>
+        <td>{{report.user}}</td>
+      </tr>
+      {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div> 
+{% endif %}
+<br>
+
+{% endblock %}
