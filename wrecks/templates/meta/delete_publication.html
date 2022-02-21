@@ -3,7 +3,7 @@
 
 <div class = container style = "max-width:45em">
 </br>
-    <h2>Are you sure you want to delete {{publication.name}}?</h2>
+    <h2>Are you sure you want to delete {{publication.title}}?</h2>
 
     <a href = {% url 'detail_publication' publication.id %} class ='btn btn-secondary'> Back to publication page </a>
 <br></br></br>
@@ -24,7 +24,7 @@
 $(document).ready(function() {
      $(':input[type="submit"]').prop('disabled', true);
      $('input[type="text"]').keyup(function() {
-        if($(this).val() == '{{publication.name}}') {
+        if($(this).val() == '{{publication.title}}') {
            $(':input[type="submit"]').prop('disabled', false);
         }
      });
