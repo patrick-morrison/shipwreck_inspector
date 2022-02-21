@@ -25,7 +25,7 @@ def CreatePublication(request):
             pub.site.set(filled_form.cleaned_data['site'])
             pub.authors.set(filled_form.cleaned_data['authors'])
             pub.project.set(filled_form.cleaned_data['project'])
-            pub.report.set(filled_form.cleaned_data['report'])
+            pub.reports.set(filled_form.cleaned_data['reports'])
             pub.save()
             return redirect('detail_publication', pub.pk)
 
