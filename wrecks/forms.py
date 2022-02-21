@@ -8,10 +8,12 @@ class DateInput(forms.DateInput):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ['title', 'date', 'authors', 'file']
+        fields = ['title', 'date', 'authors', 'project', 'abstract', 'file',]
         widgets = {
             'date': DateInput,
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            'project': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
+            'abstract':forms.Textarea,
             }
 
 class SiteForm(forms.ModelForm):

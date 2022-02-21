@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from .models import Report, Site, Person
+from .models import Report, Site, Person, Project
 
 from .forms import ReportForm, SiteForm
 from dal import autocomplete
@@ -126,5 +126,17 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(first_name__icontains=self.q) | qs.filter(last_name__icontains=self.q)
+
+        return qs
+
+class ProjectAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Project.objects.none()
+
+        qs = Project.objects.all()
+
+        if self.q:
+            qs = qs.filter(title__icontains=self.q) | qs.filter(description__icontains=self.q)
 
         return qs

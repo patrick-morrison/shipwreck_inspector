@@ -8,11 +8,11 @@ class Site(models.Model):
     built = models.CharField(max_length=255, null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True)
     construction = models.CharField(max_length=255, null=True, blank=True)
-    owner = models.CharField(max_length=255, null=True, blank=True)
-    size = models.CharField(max_length=255, null=True, blank=True)
-    location = models.CharField(max_length=255, null=True, blank=True)
-    underwater = models.CharField(max_length=255, null=True, blank=True)
-    sinking = models.CharField(max_length=255, null=True, blank=True)
+    owner = models.CharField(max_length=500, null=True, blank=True)
+    size = models.CharField(max_length=500, null=True, blank=True)
+    location = models.CharField(max_length=500, null=True, blank=True)
+    underwater = models.CharField(max_length=500, null=True, blank=True)
+    sinking = models.CharField(max_length=500, null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     image = models.ImageField(upload_to='hero_images/', null=True, blank=True)
@@ -46,12 +46,24 @@ class Person(models.Model):
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+class Project(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=1200, null=True, blank=True)
+    leaders = models.ManyToManyField(Person)
+    date_start = models.DateField()
+    date_end = models.DateField()
+
+    def __str__(self):
+        return self.title
+
 class Report(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateField()
     authors = models.ManyToManyField(Person)
+    project = models.ManyToManyField(Project)
     site = models.ForeignKey(Site, on_delete=models.RESTRICT)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    abstract = models.CharField(max_length=1200, null=True, blank=True)
     file = models.FileField(upload_to='reports/', null=True, blank=True)
 
     def __str__(self):
@@ -60,10 +72,12 @@ class Report(models.Model):
 class Publication(models.Model):
     title = models.CharField(max_length=255)
     authors = models.ManyToManyField(Person)
+    project = models.ManyToManyField(Project)
     reports = models.ManyToManyField(Report)
     date = models.DateField()
     site = models.ManyToManyField(Site)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    abstract = models.CharField(max_length=1200, null=True, blank=True)
     file = models.FileField(upload_to='publications/', null=True, blank=True)
 
     def __str__(self):
