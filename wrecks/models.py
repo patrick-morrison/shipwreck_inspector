@@ -29,6 +29,12 @@ class Site(models.Model):
             return Report.objects.filter(site=self.pk).order_by('-date').first().date
         except:
             return 'never'
+
+    def n_reports(self):
+        try:
+            return Report.objects.filter(site=self.pk).count()
+        except:
+            return 0
     
 
 class Person(models.Model):

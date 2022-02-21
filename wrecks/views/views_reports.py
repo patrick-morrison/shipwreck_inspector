@@ -11,6 +11,7 @@ class reports(generic.ListView):
     model = Report
     paginate_by = 24
     template_name = "sites/reports.html"
+    ordering = ['-date']
 
 class site_reports(generic.ListView):
     paginate_by = 20

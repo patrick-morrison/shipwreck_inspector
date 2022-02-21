@@ -8,6 +8,7 @@ class publications(generic.ListView):
     model = Publication
     paginate_by = 24
     template_name = "meta/publications.html"
+    ordering = ['-date']
 
 def CreatePublication(request):
     form = PublicationForm()
