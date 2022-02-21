@@ -21,12 +21,12 @@ def home(request):
 
 class sites(generic.ListView):
     model = Site
-    paginate_by = 2
+    paginate_by = 12
     template_name = "sites/sites.html"
 
 class reports(generic.ListView):
     model = Report
-    paginate_by = 20
+    paginate_by = 24
     template_name = "sites/reports.html"
 
 class site_reports(generic.ListView):
