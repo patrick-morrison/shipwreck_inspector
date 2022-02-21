@@ -21,9 +21,8 @@ def home(request):
 
 class sites(generic.ListView):
     model = Site
-    paginate_by = 8
+    paginate_by = 2
     template_name = "sites/sites.html"
-
 
 class reports(generic.ListView):
     model = Report

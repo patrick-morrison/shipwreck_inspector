@@ -20,6 +20,12 @@ class Site(models.Model):
 
     def __str__(self):
         return self.name + " " + self.built + "-" + self.sunk
+
+    def last_report(self):
+        try:
+            return Report.objects.filter(site=self.pk).order_by('-date').first().date
+        except:
+            return 'never'
     
 
 class Person(models.Model):
