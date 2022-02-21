@@ -5,7 +5,7 @@
 </br>
     <h2>Are you sure you want to delete {{publication.name}}?</h2>
 
-    <a href = {% url 'detail_publication' site.id %} class ='btn btn-secondary'> Back to publication page </a>
+    <a href = {% url 'detail_publication' publication.id %} class ='btn btn-secondary'> Back to publication page </a>
 <br></br></br>
 <form method = 'post'>
 
