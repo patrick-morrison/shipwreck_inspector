@@ -1,4 +1,3 @@
-from turtle import position
 from .models import Publication, Report, Site, Person
 from dal import autocomplete
 from django import forms
