@@ -42,7 +42,7 @@ class PublicationForm(forms.ModelForm):
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ['first_name', 'last_name', 'position', 'user', 'email','birth_date', 'bio'] 
+        fields = ['first_name', 'last_name', 'active', 'position', 'user', 'email','birth_date', 'bio'] 
         widgets = {
             'bio':forms.Textarea,
             'user': autocomplete.ModelSelect2Multiple(url='user-autocomplete'),
