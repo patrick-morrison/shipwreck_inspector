@@ -1,5 +1,7 @@
 from django.views import generic
-from ..models import Person
+
+from wrecks.views.views_publications import publications
+from ..models import Person, Report, Publication, Project
 from ..forms import PersonForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
@@ -14,3 +16,27 @@ class CreatePerson(generic.CreateView):
     form_class = PersonForm
     template_name = 'meta/create_person.html'
     success_url = reverse_lazy('home')
+
+class DetailPerson(generic.DetailView):
+    model = Person
+    template_name = 'meta/detail_person.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reports = Report.objects.filter(authors=context['person'])
+        context['reports'] = reports
+        context['publications'] = Publication.objects.filter(authors=context['person']).distinct
+        context['projects_lead'] = Project.objects.filter(leaders=context['person']).distinct
+        context['projects'] = Project.objects.filter(report__in=reports).distinct
+        return context
+
+class UpdatePerson(generic.UpdateView):
+    model = Person
+    template_name = 'meta/update_person.html'
+    form_class = PersonForm
+    def get_success_url(self):
+        return reverse_lazy('detail_person', kwargs={'pk': self.object.pk})
+
+class DeletePerson(generic.DeleteView):
+    model = Person
+    template_name = 'meta/delete_person.html'
+    success_url = reverse_lazy('people')

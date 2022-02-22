@@ -20,7 +20,7 @@
                 <h5 class="card-title">{{publication.title}}</h5>
                 <p class="card-text">
                     {% for author in publication.authors.all %}
-                    <button type="button" class="btn btn-light btn-sm">{{ author }}</button>
+                    <a href ='{% url 'detail_person' author.id %}' class="btn btn-light btn-sm">{{ author }}</a>
                     {% endfor %}
                 </p>
             </div>

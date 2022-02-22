@@ -1,0 +1,30 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+<br>
+<div class = container style = "max-width:45em">
+<div>
+    <h2>Edit person details</h2>
+
+    <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}'>
+        <form enctype='multipart/form-data' method = 'post'>
+        
+            {%csrf_token%}
+            {% load widget_tweaks %}
+            {{ form.media }}
+            
+            {%for field in form%}
+                {{field.errors}}
+                {{field.label_tag}}
+                {%render_field field class='form-control'%}
+                
+            {%endfor%}
+            <br>
+            <button type="submit" class = 'btn btn-primary'>Save</button>
+</form>
+<br>
+<a href = {% url 'delete_person' person.id %} class ='btn btn-danger'>Delete this person's page</a>
+<br>
+</div>
+</div>
+
+{% endblock %}

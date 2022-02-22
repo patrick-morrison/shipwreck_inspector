@@ -1,0 +1,92 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+
+<div class = container style = "max-width:45em">
+</br>
+<h2>{{ person.first_name }} {{ person.last_name }}</h2>
+<p class="lead">
+    {%if person.user%}
+    <span class="badge bg-success">@{{person.user.username}}</span>
+     {%endif%}
+    {{person.get_position_display}}
+    </p>
+
+<p> {{person.bio}} </p>
+
+{% if user.is_authenticated %}
+<p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_person' person.id %}">Edit this person's details</a></p>
+{% endif %}
+
+{% if projects_lead %}
+<div>
+    <h5>Projects (lead)</h2>
+    {% for project in projects_lead %}
+    <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
+    {% endfor %}
+</div>
+<br>
+{% endif %}
+
+{% if projects %}
+<div>
+    <h5>Projects</h2>
+    {% for project in projects %}
+    <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
+    {% endfor %}
+</div>
+{% endif %}
+  <br>
+
+{% if publications %}
+<h5>Publications</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Title</th>
+        <th scope="col">User</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for publication in publications %}
+      <tr>
+        <th scope="row">{{publication.date }}</th>
+        <td><a href="{% url 'detail_publication' publication.id %}" class="link-dark">{{publication.title }}</a></td>
+        <td>@{{publication.user}}</td>
+      </tr>
+      {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+{% endif %}
+
+<br>
+
+{% if reports %}
+<h5>Site Reports</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Title</th>
+        <th scope="col">Site</th>
+        <th scope="col">User</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for report in reports %}
+      <tr>
+        <th scope="row">{{report.date }}</th>
+        <td><a href="{% url 'detail_report' report.id %}" class="link-dark">{{report.title }}</a></td>
+        <td>{{report.site}}</td>
+        <td>@{{report.user}}</td>
+      </tr>
+      {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div> 
+{% endif %}
+<br>
+
+{% endblock %}

@@ -43,8 +43,6 @@ class Person(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, null=True, blank=True)
     bio = models.TextField(max_length=500, null=True, blank=True)
-    active = models.BooleanField()
-    birth_date = models.DateField(null=True, blank=True)
     POSITION_CHOICES = [
         ('ME', 'Member'),
         ('GU', 'Guest'),

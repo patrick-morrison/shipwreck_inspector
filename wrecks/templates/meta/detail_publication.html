@@ -10,7 +10,7 @@
 <div>
     <h5>Authors</h2>
     {% for author in publication.authors.all %}
-    <button type="button" class="btn btn-outline-dark btn-sm">{{ author }}</button>
+    <a href ='{% url 'detail_person' author.id %}' class="btn btn-outline-dark btn-sm">{{ author }}</a>
     {% endfor %}
 </div>
 

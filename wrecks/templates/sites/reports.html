@@ -18,7 +18,7 @@
                 <p><a href = '{% url 'detail_site' report.site.id %}' class="link-secondary">{{report.site}}</a></p>
                 <p class="card-text">
                     {% for author in report.authors.all %}
-                    <button type="button" class="btn btn-light btn-sm">{{ author }}</button>
+                    <a href ='{% url 'detail_person' author.id %}' class="btn btn-light btn-sm">{{ author }}</a>
                     {% endfor %}
                 </p>
             </div>
