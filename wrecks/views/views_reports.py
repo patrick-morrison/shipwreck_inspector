@@ -19,7 +19,7 @@ class site_reports(generic.ListView):
 
     def get_queryset(self):
         self.site = get_object_or_404(Site, id=self.kwargs['pk'])
-        return Report.objects.filter(site=self.site).order_by('-date')
+        return Report.objects.filter(site=self.site)
 
     def get_context_data(self, **kwargs):
         self.site = get_object_or_404(Site, id=self.kwargs['pk'])

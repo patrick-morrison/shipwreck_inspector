@@ -11,7 +11,7 @@
 <form method = 'post'>
 
     {%csrf_token%}
-    <label for="textField">Type site name before you can delete</label>
+    <label for="textField">Type <b>{{site.name}}</b> before you can delete</label>
     <input type="text" class="form-control" placeholder="{{site.name}}" name="textField" /></br>
     <button type="submit" class = 'btn btn-danger'>Confirm Delete</button>
     

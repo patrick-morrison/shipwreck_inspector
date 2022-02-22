@@ -33,7 +33,7 @@ class DetailSite(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         reps = Report.objects.filter(site=context['site'])
-        reps_filtered = reps.order_by('-date')[0:10]
+        reps_filtered = reps[0:10]
         context['Reports'] = reps_filtered
         context['nReports'] = reps.count()
         context['nReportsDisp'] = reps_filtered.count()

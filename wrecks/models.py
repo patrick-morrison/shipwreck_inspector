@@ -53,7 +53,8 @@ class Person(models.Model):
     position = models.CharField(
         max_length=2,
         choices= POSITION_CHOICES,
-        default='GUEST',
+        default='GU',
+        blank=True
     )
 
     def __str__(self):
@@ -81,6 +82,8 @@ class Report(models.Model):
 
     def __str__(self):
         return self.date.strftime("%Y-%m-%d") + " " + self.site.name + " " + self.title
+    class Meta:
+        ordering = ["-date"]
 
 class Publication(models.Model):
     title = models.CharField(max_length=255)
@@ -88,10 +91,12 @@ class Publication(models.Model):
     project = models.ManyToManyField(Project, blank=True)
     reports = models.ManyToManyField(Report, blank=True)
     date = models.DateField()
-    site = models.ManyToManyField(Site)
+    site = models.ManyToManyField(Site, blank=True)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     abstract = models.CharField(max_length=1200, null=True, blank=True)
     file = models.FileField(upload_to='publications/', null=True, blank=True)
 
     def __str__(self):
         return self.date.strftime("%Y-%m-%d") + " " + self.title
+    class Meta:
+        ordering = ["-date"]

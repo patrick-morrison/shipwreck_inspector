@@ -10,7 +10,7 @@
 <form method = 'post'>
 
     {%csrf_token%}
-    <label for="textField">Type report title before you can delete</label>
+    <label for="textField">Type <b>{{report.title}}</b> before you can delete</label>
     <input type="text" class="form-control" placeholder="{{report.title}}" name="textField" /></br>
     <button type="submit" class = 'btn btn-danger'>Confirm Delete</button>
     
