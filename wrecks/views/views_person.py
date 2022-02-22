@@ -1,10 +1,7 @@
 from django.views import generic
-
-from wrecks.views.views_publications import publications
 from ..models import Person, Report, Publication, Project
 from ..forms import PersonForm
 from django.urls import reverse_lazy
-from django.shortcuts import redirect, render
 
 class persons(generic.ListView):
     model = Person
@@ -15,7 +12,8 @@ class CreatePerson(generic.CreateView):
     model = Person
     form_class = PersonForm
     template_name = 'meta/create_person.html'
-    success_url = reverse_lazy('home')
+    def get_success_url(self):
+        return reverse_lazy('detail_person', kwargs={'pk': self.object.pk})
 
 class DetailPerson(generic.DetailView):
     model = Person
