@@ -22,9 +22,9 @@ class DetailPerson(generic.DetailView):
         context = super().get_context_data(**kwargs)
         reports = Report.objects.filter(authors=context['person'])
         context['reports'] = reports
-        context['publications'] = Publication.objects.filter(authors=context['person']).distinct
-        context['projects_lead'] = Project.objects.filter(leaders=context['person']).distinct
-        context['projects'] = Project.objects.filter(report__in=reports).distinct
+        #context['publications'] = Publication.objects.filter(authors=context['person']).distinct
+        #context['projects_lead'] = Project.objects.filter(leaders=context['person']).distinct
+        #context['projects'] = Project.objects.filter(report__in=reports).distinct
         return context
 
 class UpdatePerson(generic.UpdateView):
