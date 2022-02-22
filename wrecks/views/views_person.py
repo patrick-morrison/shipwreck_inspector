@@ -24,7 +24,7 @@ class DetailPerson(generic.DetailView):
         context['reports'] = reports
         context['publications'] = Publication.objects.filter(authors=context['person'])
         context['projects_lead'] = Project.objects.filter(leaders=context['person']).distinct()
-        #context['projects'] = Project.objects.filter(report__in=reports).distinct
+        context['projects'] = Project.objects.filter(report__in=reports).distinct()
         return context
 
 class UpdatePerson(generic.UpdateView):
