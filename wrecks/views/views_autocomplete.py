@@ -1,4 +1,5 @@
 from ..models import Person, Site, Report, Project
+from django.contrib.auth.models import User
 from dal import autocomplete
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
@@ -46,5 +47,17 @@ class ReportAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(title__icontains=self.q) | qs.filter(date__icontains=self.q) | qs.filter(site__name__icontains=self.q)
+
+        return qs
+
+class UserAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Report.objects.none()
+
+        qs = User.objects.all()
+
+        if self.q:
+            qs = qs.filter(firstname__icontains=self.q) | qs.filter(lastname__icontains=self.q)
 
         return qs

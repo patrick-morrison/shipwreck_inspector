@@ -2,7 +2,7 @@
 {% block content %}
 <div class = 'container'>
     <br>
-    <h2>Add Publication</h2>
+    <h2>Add Person</h2>
 <form enctype='multipart/form-data' method = 'post'>
 
     {%csrf_token%}
@@ -18,9 +18,9 @@
 
     </div>
     {%endfor%}
-    <br>
     
-    <input type="submit" value ="Add report" class = 'btn btn-primary'>
+    <br>
+    <input type="submit" value ="Add person" class = 'btn btn-primary'>
 
     
 </form>

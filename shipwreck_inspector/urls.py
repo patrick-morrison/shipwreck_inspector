@@ -48,6 +48,9 @@ urlpatterns = [
     path('publications/<int:pk>', views.DetailPublication.as_view(), name = 'detail_publication'),
     path('publications/<int:pk>/edit', views.UpdatePublication.as_view(), name = 'update_publication'),
     path('publications/<int:pk>/delete', views.DeletePublication.as_view(), name = 'delete_publication'),
+    #People
+    path('people', views.persons.as_view(), name = 'people'),
+    path('person/create', views.CreatePerson.as_view(), name = 'create_person'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
@@ -72,5 +75,10 @@ urlpatterns += [
         'report-autocomplete/',
         views.ReportAutocomplete.as_view(),
         name='report-autocomplete',
+    ),
+        path(
+        'user-autocomplete/',
+        views.UserAutocomplete.as_view(),
+        name='user-autocomplete',
     ),
 ]

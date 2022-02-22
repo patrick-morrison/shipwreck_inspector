@@ -27,7 +27,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Navbar">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Shipwrecks Inspector</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
@@ -50,7 +50,7 @@
             <a class="nav-link disabled aria-current=" page" href="#">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled aria-current=" page" href="#">People</a>
+            <a class="nav-link active aria-current=" page" href="{%url 'people' %}">People</a>
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item dropdown">

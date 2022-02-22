@@ -1,0 +1,82 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+
+<br><div class="container">
+  <h2>People
+  {% if user.is_authenticated %}
+  <a href="{% url 'create_person'%}" class="btn btn-primary my-2">Add</a>
+  {% endif %}</h2> 
+<br>
+</div>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+         <div class="row row-cols-1 row-cols-md-2  row-cols-lg-3 row-cols-xxl-4  g-4">
+
+        {% for person in object_list %}
+        <div class="col">
+            <div class="card shadow-sm h-100" style="max-width: 23rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{person.first_name}} {{person.last_name}}</h5>
+                {%if person.bio%}
+                <p class = 'card-text'>{{person.bio}}</p>
+                {%endif%}
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <div>
+                <a href="" class="btn btn-sm btn-outline-dark">View</a>
+                {% if user.is_authenticated %}
+                <a href="" class="btn btn-sm btn-outline-dark">Edit</a>
+                {% endif %}
+                </div>
+                <div>
+                {%if person.user%}
+                <span class="badge bg-success">@{{person.user.username}}</span>  
+                {%endif%}
+                <small class="text-muted">{{person.get_position_display}} </small>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    
+        <br>
+      <!--Pagination-->
+      <nav>
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{page_obj.previous_page_number }}">Previous</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+            </li>
+          {% endif %}
+          {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+              <li class="page-item active" aria-current="page">
+                <span class="page-link">
+                  {{ i }}
+                </span>
+              </li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+      <!--end of Pagination-->
+</div>
+
+{% endblock %}
