@@ -7,6 +7,7 @@
 <p class="lead"><a href = '{% url 'detail_site' report.site.id %}' class="link-dark"'>{{ report.site }}</a>,
      {{ report.date }}</p>
 <div>
+  <h5>Authors:</h5>
     {% for author in report.authors.all %}
     <a href ='{% url 'detail_person' author.id %}' class="btn btn-outline-dark btn-sm">{{ author }}</a>
     {% endfor %}
@@ -14,8 +15,18 @@
 
   <br>
 
-<p>{{ report.abstract }}</p>
+{%if report.project.all%}
+<div>
+  <h5>Project:</h5>
+  {% for project in report.project.all %}
+  <a href ='' class="btn btn-outline-dark btn-sm">{{ project }}</a>
+  {% endfor %}
+</div>
+<br>
 
+{%endif%}
+
+<p>{{ report.abstract }}</p>
 {% if user.is_authenticated %}
 <p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_report' report.id %}">Edit this report</a></p>
 {% endif %}
