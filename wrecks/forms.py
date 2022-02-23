@@ -14,7 +14,6 @@ class ReportForm(forms.ModelForm):
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
             'project': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
             'abstract':forms.Textarea,
-            'file':forms.ClearableFileInput(attrs={'multiple': True})
             }
 
 class SiteForm(forms.ModelForm):
