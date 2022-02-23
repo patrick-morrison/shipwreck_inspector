@@ -1,7 +1,10 @@
 import json, csv
-from pydoc import describe
 from django.http import JsonResponse, HttpResponse
 from ..models import Site, Report, Publication, Person
+from django.shortcuts import render
+
+def data(request):
+    return render(request, 'wrecks/data.html')
 
 def sites_json(request):
     sites = Site.objects.all()

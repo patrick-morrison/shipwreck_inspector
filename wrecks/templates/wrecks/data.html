@@ -1,0 +1,22 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+<div class = container style = "max-width:45em">
+</br>
+<h2>Data</h2>
+
+<div>
+<h3>Download tables as csv:</h3>
+<a href="{%url 'sites_csv'%}" class="btn btn-primary">Sites</a>
+<a href="{%url 'reports_csv'%}" class="btn btn-primary">Reports</a>
+<a href="{%url 'publications_csv'%}" class="btn btn-primary">Publications</a>
+<a href="{%url 'people_csv'%}" class="btn btn-primary">People</a>
+</div>
+<br>
+
+<h3>Attachments:</h3>
+<p>All attachments (including images) are stored in a Dropbox folder. Check the tables for exact paths.</p>
+<a href="" class="btn btn-primary">Visit Dropbox</a>
+
+
+</div>
+{% endblock %}
