@@ -22,6 +22,9 @@
         {% for site in object_list %}
         <div class="col">
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
+              {% if site.image %}
+              <img class="card-img-top" src="{{site.image.url}}" alt="{{site.image_caption}}">
+              {%endif%}
             <div class="card-body">
                 <h5 class="card-title">{{site}}</h5>
                 <p class="card-text">

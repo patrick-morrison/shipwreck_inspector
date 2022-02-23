@@ -5,6 +5,16 @@
 </br>
 <h2>{{ site }}</h2>
 
+{% if site.image %}
+
+<div class="card mb-3">
+  <img class="card-img-top" src="{{site.image.url}}" alt="{{site.image_caption}}">
+  <div class="card-body">
+    <p class="card-text"><small class="text-muted">{{site.image_caption}}</small></p>
+  </div>
+</div>
+{% endif %}
+
 <div class="d-md-none">
   <table class="table">
     <tbody>
