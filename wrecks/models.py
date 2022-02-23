@@ -15,7 +15,7 @@ class Site(models.Model):
     sinking = models.CharField(max_length=500, null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
-    image = models.ImageField(upload_to='hero_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='site_images/', null=True, blank=True)
     image_caption = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
@@ -70,6 +70,9 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+def report_date_directory_path(instance, filename):
+    return 'reports/{0}/{1}/{2}'.format(instance.date.year, instance.date, filename)
+
 class Report(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateField()
@@ -78,12 +81,13 @@ class Report(models.Model):
     site = models.ForeignKey(Site, on_delete=models.RESTRICT)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     abstract = models.CharField(max_length=1200, null=True, blank=True)
-    file = models.FileField(upload_to='reports/', null=True, blank=True)
+    file = models.FileField(upload_to=report_date_directory_path, null=True, blank=True)
 
     def __str__(self):
         return self.date.strftime("%Y-%m-%d") + " " + self.site.name + " " + self.title
     class Meta:
         ordering = ["-date"]
+
 
 class Publication(models.Model):
     title = models.CharField(max_length=255)
@@ -94,7 +98,7 @@ class Publication(models.Model):
     site = models.ManyToManyField(Site, blank=True)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     abstract = models.CharField(max_length=1200, null=True, blank=True)
-    file = models.FileField(upload_to='publications/', null=True, blank=True)
+    file = models.FileField(upload_to='publications', null=True, blank=True)
 
     def __str__(self):
         return self.date.strftime("%Y-%m-%d") + " " + self.title

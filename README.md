@@ -26,6 +26,18 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+Note: to configure dropbox, you need to make a secret key: https://django-storages.readthedocs.io/en/latest/backends/dropbox.html
+
+The in the permission tabs enable
+- files.metadata.write
+- files.content.write
+- files.content.read
+
+Then add it to the venv/source/activate file
+```bash
+export DROPBOX_OAUTH2_TOKEN=XXXXXX
+```
+
 ## Usage
 
 TBC
@@ -38,6 +50,9 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 ```
+
+Remember to set the environment variable:
+DROPBOX_OAUTH2_TOKEN
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
