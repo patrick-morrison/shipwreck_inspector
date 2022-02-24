@@ -29,7 +29,9 @@
                 <a href="{% url 'update_report' report.id %}" class="btn btn-sm btn-outline-dark">Edit</a>
                 {% endif %}
                 </div>
-                <small class="text-muted">{{report.date}}</small>
+                <small class="text-muted">
+                  {%if report.file%}📎{%endif%}
+                  {{report.date}}</small>
                 </div>
             </div>
         </div>

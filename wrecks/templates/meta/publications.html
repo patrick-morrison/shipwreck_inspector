@@ -31,7 +31,9 @@
                 <a href="{% url 'update_publication' publication.id %}" class="btn btn-sm btn-outline-dark">Edit</a>
                 {% endif %}
                 </div>
-                <small class="text-muted">{{publication.date}}</small>
+                <small class="text-muted">
+                  {%if publication.file%}📎{%endif%}
+                  {{publication.date}}</small>
                 </div>
             </div>
         </div>
