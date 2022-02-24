@@ -32,7 +32,7 @@ class site_reports(generic.ListView):
         return context
 
 def CreateReport(request, pk):
-    form = ReportForm()
+    form = ReportForm(initial={'authors':request.user})
 
     Site_id = Site.objects.get(pk=pk)
 

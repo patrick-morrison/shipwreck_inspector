@@ -7,9 +7,9 @@ from ..models import Report, Photo
 from ..forms import PhotoForm, PhotoFormSingle
 
 def CreatePhoto(request, pk):
-    form = PhotoForm()
 
     Report_id = Report.objects.get(pk=pk)
+    form = PhotoForm(initial={'date': Report_id.date, 'authors':request.user})
 
     if request.method == 'POST':
         filled_form = PhotoForm(request.POST, request.FILES)
