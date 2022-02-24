@@ -28,7 +28,7 @@
 
 <p>{{ report.abstract }}</p>
 {% if user.is_authenticated %}
-<p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_report' report.id %}">Edit this report</a></p>
+<p class = 'text-center'><a class = 'text-muted' href="{% url 'update_report' report.id %}">Edit this report</a></p>
 {% endif %}
 
 {%if report.file%}
@@ -37,5 +37,38 @@
 <a href="{{ report.file.url }}" download  class="btn btn-dark float-right">Download</a>
 <br>
 {%endif%}
+
+{%if photos.all%}
+<div>
+  <h5>Photos:</h5>
+  <div class="row row-cols-1 row-cols-sm-2 g-4">
+    
+  {% for photo in photos.all %}
+  <div class="col">
+  <div class="card shadow-xs" style="max-width: 22rem;">
+    <img class="card-img-top" src="{{photo.file.url}}" alt="{{photo.caption}}">
+    <div class="card-body">
+      <p class = card-subtitle>{{photo.caption}}</p> 
+      <p class="card-text"><small class="text-muted">
+        {%for author in photo.authors.all%}
+        <a href class="link-secondary" ='{% url 'detail_person' author.id %}'>{{ author }}</a>,
+        {% endfor %}
+        {{photo.date}}
+        {% if user.is_authenticated %}
+        <a href="{% url 'update_photo' photo.id %}" class="text-muted">(edit)</a>
+        {% endif %}
+      </small>
+      </p>
+  </div>
+</div>
+</div>
+  {% endfor %}
+</div>
+</div>
+<br>
+{%endif%}
+{% if user.is_authenticated %}
+<p><a class = 'btn btn-primary' href="{% url 'create_photo' report.id %}">Add photo</a></p>
+{% endif %}
 
 {% endblock %}

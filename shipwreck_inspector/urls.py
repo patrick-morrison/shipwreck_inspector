@@ -59,6 +59,10 @@ urlpatterns = [
     path('person/<int:pk>', views.DetailPerson.as_view(), name = 'detail_person'),
     path('person/<int:pk>/edit', views.UpdatePerson.as_view(), name = 'update_person'),
     path('person/<int:pk>/delete', views.DeletePerson.as_view(), name = 'delete_person'),
+    #Photos
+    path('report/<int:pk>/photo/add', views.CreatePhoto, name = 'create_photo'),
+    path('photo/<int:pk>/edit', views.UpdatePhoto.as_view(), name = 'update_photo'),
+    path('photo/<int:pk>/delete', views.DeletePhoto.as_view(), name = 'delete_photo'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

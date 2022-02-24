@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from ..models import Report, Site
+from ..models import Report, Site, Photo
 
 from ..forms import ReportForm
 
@@ -23,6 +23,7 @@ class site_reports(generic.ListView):
 
     def get_context_data(self, **kwargs):
         self.site = get_object_or_404(Site, id=self.kwargs['pk'])
+        self.photos = get_object_or_404(Photo, id=self.kwargs['pk'])
         context = super().get_context_data(**kwargs)
         reps = Report.objects.filter(site=self.site)
         context['nReports'] = reps.count()
@@ -55,6 +56,11 @@ def CreateReport(request, pk):
 class DetailReport(generic.DetailView):
     model = Report
     template_name = 'sites/detail_report.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        photos = Photo.objects.filter(report=context['report'])
+        context['photos'] = photos
+        return context
 
 class UpdateReport(generic.UpdateView):
     model = Report

@@ -1,4 +1,4 @@
-from .models import Publication, Report, Site, Person
+from .models import Publication, Report, Site, Person, Photo
 from dal import autocomplete
 from django import forms
 
@@ -47,3 +47,22 @@ class PersonForm(forms.ModelForm):
             'bio':forms.Textarea,
             'user': autocomplete.ModelSelect2Multiple(url='user-autocomplete'),
             }            
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ['caption', 'date', 'authors', 'file']
+        widgets = {
+            'date': DateInput,
+            'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            'file':forms.ClearableFileInput(attrs={'multiple': True}),
+            }
+
+class PhotoFormSingle(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ['caption', 'date', 'authors', 'file']
+        widgets = {
+            'date': DateInput,
+            'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            }

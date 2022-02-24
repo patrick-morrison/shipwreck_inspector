@@ -1,0 +1,35 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+
+<div class = container style = "max-width:45em">
+</br>
+    <h2>Are you sure you want to delete {{photo.caption}}?</h2>
+
+    <a href = {% url 'detail_report' photo.report.id %} class ='btn btn-secondary'> Back to report page </a>
+<br></br></br>
+<form method = 'post'>
+
+    {%csrf_token%}
+    <label for="textField">Type <b>{{photo.caption}}</b> before you can delete</label>
+    <input type="text" class="form-control" placeholder="{{photo.caption}}" name="textField" /></br>
+    <button type="submit" class = 'btn btn-danger'>Confirm Delete</button>
+    
+</form>
+ </a>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+     $(':input[type="submit"]').prop('disabled', true);
+     $('input[type="text"]').keyup(function() {
+        if($(this).val() == '{{photo.caption}}') {
+           $(':input[type="submit"]').prop('disabled', false);
+        }
+     });
+ });
+
+</script>
+
+{% endblock %}
