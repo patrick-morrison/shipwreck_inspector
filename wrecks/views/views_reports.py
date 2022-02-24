@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from ..models import Report, Site, Photo
+from ..models import Report, Site, Photo, Publication
 
 from ..forms import ReportForm
 
@@ -61,6 +61,8 @@ class DetailReport(generic.DetailView):
     template_name = 'sites/detail_report.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        publications = Publication.objects.filter(reports=context['report'])
+        context['publications'] = publications
         photos = Photo.objects.filter(report=context['report'])
         context['photos'] = photos
         return context
