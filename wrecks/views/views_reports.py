@@ -43,13 +43,16 @@ def CreateReport(request, pk):
             report.title = filled_form.cleaned_data['title']
             report.date = filled_form.cleaned_data['date']
             report.file = filled_form.cleaned_data['file']
+            report.abstract = filled_form.cleaned_data['abstract']
             report.site = Site.objects.get(pk=pk)
             report.user = request.user
             report.save()
             authors = filled_form.cleaned_data['authors']
             report.authors.set(authors)
+            projects = filled_form.cleaned_data['project']
+            report.project.set(projects)
             report.save()
-            return redirect('detail_site', pk)
+            return redirect('detail_report', report.pk)
 
     return render(request, 'sites/create_report.html', {'form': form, 'site':Site_id})
 

@@ -35,7 +35,7 @@
 <h5>Attachment:</h5>
 <p>{{ report.file.name }}</p>
 <a href="{{ report.file.url }}" download  class="btn btn-dark float-right">Download</a>
-<br>
+<br><br>
 {%endif%}
 
 {%if photos.all%}
@@ -68,7 +68,7 @@
 <br>
 {%endif%}
 {% if user.is_authenticated %}
-<p><a class = 'btn btn-primary' href="{% url 'create_photo' report.id %}">Add photo</a></p>
+<p><a class = 'btn btn-primary' href="{% url 'create_photo' report.id %}">Add photos</a></p>
 {% endif %}
 
 {% endblock %}
