@@ -6,6 +6,7 @@ class Site(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     sunk = models.CharField(max_length=255, null=True, blank=True)
     built = models.CharField(max_length=255, null=True, blank=True)
+    built_details = models.CharField(max_length=255, null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True)
     construction = models.CharField(max_length=255, null=True, blank=True)
     owner = models.CharField(max_length=500, null=True, blank=True)
@@ -13,10 +14,26 @@ class Site(models.Model):
     location = models.CharField(max_length=500, null=True, blank=True)
     underwater = models.CharField(max_length=500, null=True, blank=True)
     sinking = models.CharField(max_length=500, null=True, blank=True)
+    REGION_CHOICES = [
+        ('PC', 'Perth Coast'),
+        ('RI', 'Rottnest Island'),
+        ('SW', 'Swan River'),
+        ('SC', 'Southwest Coast'),
+        ('SO', 'South Coast'),
+        ('MW', 'Midwest Coast'),
+        ('NW', 'Northwest Coast'),
+    ]
+    region = models.CharField(
+        max_length=2,
+        choices= REGION_CHOICES,
+        blank=True
+    )
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     image = models.ImageField(upload_to='site_images/', null=True, blank=True)
     image_caption = models.CharField(max_length=255, null=True, blank=True)
+    museum_link = models.URLField(null=True, blank=True)
+    dave_link = models.URLField(null=True, blank=True)
 
     def __str__(self):
         if self.sunk is None:

@@ -4,6 +4,7 @@
 <div class = container style = "max-width:45em">
 </br>
 <h2>{{ site }}</h2>
+<p class="lead">{{site.get_region_display}}</p>
 
 {% if site.image %}
 
@@ -96,8 +97,8 @@
         <td>{{ site.location }}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td>Building</td>
+        <td>{{ site.built_details }}</td>
         <td>Sinking</td>
         <td>{{ site.sinking }}</td>
       </tr>
@@ -112,10 +113,18 @@
 
 </div>
 
-
+<div class="d-flex justify-content-between align-items-center">
+  <div>
+{%if site.museum_link or site.dave_link%}<small>See more:  </small>{%endif%}
+{%if site.museum_link%}<a href="{{site.museum_link}}" class="btn btn-secondary btn-sm">WA Museum</a>{%endif%}
+{%if site.dave_link%}<a href="{{site.dave_link}}" class="btn btn-secondary btn-sm">Diving WA's Wrecks</a>{%endif%}
+</div>
+<div>
 {% if user.is_authenticated %}
-  <a class = 'text-muted' href="{% url 'update_site' site.id %}">Edit this entry</a>
+ <a class = 'text-muted' href="{% url 'update_site' site.id %}">Edit this entry</a>
 {%endif%}
+</div>
+</div>
 <br>
   <br>
 
