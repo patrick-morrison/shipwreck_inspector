@@ -43,7 +43,7 @@ export DROPBOX_OAUTH2_TOKEN=XXXXXX
 TBC
 
 ## Deploy to Heroku
-This app is configured with a procfile and django-heroku to deploy easily. Simply point Heroku to the git repository, add a postgres database and run it. You will then need to run:
+This app is configured with a procfile and django-heroku to deploy easily. Simply point Heroku to the git repository, add a postgres database addon and run it. You will then need to run:
 
 ```bash
 python manage.py makemigrations
@@ -54,7 +54,7 @@ python manage.py createsuperuser
 Remember to set the environment variable:
 DROPBOX_OAUTH2_TOKEN
 
-You can use the task scheduler to make regular backups. The following command saves csv files into a folder called 'tables':
+You can use the heroku-scheduler addon to make regular backups. The following management command saves csv files into a folder called 'tables':
 ```bash
 python manage.py save_tables
 ```
