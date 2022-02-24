@@ -54,5 +54,10 @@ python manage.py createsuperuser
 Remember to set the environment variable:
 DROPBOX_OAUTH2_TOKEN
 
+You can use the task scheduler to make regular backups. The following command saves csv files into a folder called 'tables':
+```bash
+python manage.py save_tables
+```
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
