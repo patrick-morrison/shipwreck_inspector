@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from wrecks.views import sites_csv, reports_csv, publications_csv, people_csv
+from wrecks.views import sites_csv, reports_csv, publications_csv, people_csv, photos_csv
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import datetime
@@ -26,6 +26,10 @@ class Command(BaseCommand):
 
                 contents = people_csv('please').content
                 filename = 'tables/people-' + date + '.csv'
+                default_storage.save(filename, ContentFile(contents))
+
+                contents = photos_csv('please').content
+                filename = 'tables/photos-' + date + '.csv'
                 default_storage.save(filename, ContentFile(contents))
         except:
             self.stdout.write(self.style.ERROR('Save failed.'))

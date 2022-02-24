@@ -61,6 +61,7 @@ urlpatterns = [
     path('person/<int:pk>/delete', views.DeletePerson.as_view(), name = 'delete_person'),
     #Photos
     path('report/<int:pk>/photo/add', views.CreatePhoto, name = 'create_photo'),
+    path('photos.csv', views.photos_csv, name = 'photos_csv'),
     path('photo/<int:pk>/edit', views.UpdatePhoto.as_view(), name = 'update_photo'),
     path('photo/<int:pk>/delete', views.DeletePhoto.as_view(), name = 'delete_photo'),
 ]
