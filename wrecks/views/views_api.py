@@ -27,12 +27,12 @@ def sites_csv(request):
     response['Content-Disposition'] = 'attachment; filename="sites.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['id', 'name', 'sunk', 'description', 'construction', 'owner', 'size', 'location', 'underwater', 'sinking', 'latitude', 'longitude', 'image', 'image_caption'])
+    writer.writerow(['id', 'name', 'sunk', 'built', 'built_details', 'description', 'construction', 'owner', 'size', 'location', 'underwater', 'sinking', 'region', 'latitude', 'longitude', 'image', 'image_caption', 'museum_link', 'dave_link'])
 
     sites = Site.objects.all()
 
     for s in sites:
-        writer.writerow([s.id, s.name, s.sunk, s.description, s.construction, s.owner, s.size, s.location, s.underwater, s.sinking, s.latitude, s.longitude, s.image, s.image_caption])
+        writer.writerow([s.id, s.name, s.sunk, s.built, s.built_details, s.description, s.construction, s.owner, s.size, s.location, s.underwater, s.sinking, s.get_region_display(), s.latitude, s.longitude, s.image, s.image_caption, s.museum_link, s.dave_link])
 
     return response
 
