@@ -9,12 +9,12 @@ from ..forms import ReportForm
 
 class reports(generic.ListView):
     model = Report
-    paginate_by = 24
+    paginate_by = 36
     template_name = "sites/reports.html"
     ordering = ['-date']
 
 class site_reports(generic.ListView):
-    paginate_by = 20
+    paginate_by = 36
     template_name = "sites/site_reports.html"
 
     def get_queryset(self):
