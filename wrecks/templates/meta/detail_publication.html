@@ -58,7 +58,7 @@
       <tr>
         <th scope="row">{{report.date }}</th>
         <td><a href="{% url 'detail_report' report.id %}" class="link-dark">{{report.title }}</a></td>
-        <td>{{report.site}}</td>
+        <td><a href="{% url 'detail_site' report.site.slug %}" class="link-dark">{{report.site }}</a></td>
         <td>@{{report.user}}</td>
       </tr>
       {% endfor %}
