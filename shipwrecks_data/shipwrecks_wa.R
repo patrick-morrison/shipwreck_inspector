@@ -91,10 +91,10 @@ write_csv(wrecks_with_data_clean, 'shipwrecks_wa.csv')
 
 #Other cleaning
 
-#full <- read_csv("shipwrecks_wa_full.csv") %>% select(-built_details)
-#overwrite <- read_csv("shipwrecks_wa.csv") %>% select(id, built_details)
-#amended <- full %>% left_join(overwrite)
+full <- read_csv("shipwrecks_wa_seed.csv") %>% select(-built_details)
+overwrite <- read_csv("wip/shipwrecks_wa.csv") %>% select(id, built_details)
+amended <- full %>% left_join(overwrite)
 
-#write_csv(amended, 'shipwrecks_wa_amended.csv')
+write_csv(amended, 'shipwrecks_wa_amended.csv')
 #wrecks <- read_csv("shipwrecks_wa_seed.csv")
 #wrecks[duplicated(wrecks$name),]
