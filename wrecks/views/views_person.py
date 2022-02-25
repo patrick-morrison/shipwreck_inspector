@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 
 class persons(generic.ListView):
     model = Person
-    paginate_by = 24
+    paginate_by = 36
     template_name = "meta/people.html"
 
 class CreatePerson(generic.CreateView):

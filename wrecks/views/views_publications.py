@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 
 class publications(generic.ListView):
     model = Publication
-    paginate_by = 24
+    paginate_by = 36
     template_name = "meta/publications.html"
     ordering = ['-date']
 

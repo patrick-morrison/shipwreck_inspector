@@ -8,7 +8,7 @@ from ..forms import SiteForm
 
 class sites(generic.ListView):
     model = Site
-    paginate_by = 12
+    paginate_by = 24
     template_name = "sites/sites.html"
 
 def sites_map(request):
