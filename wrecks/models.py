@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 class Site(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField()
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     sunk = models.CharField(max_length=30, null=True, blank=True)
     built = models.CharField(max_length=30, null=True, blank=True)
@@ -40,6 +42,13 @@ class Site(models.Model):
             return self.name
         else:
             return self.name + " (" + self.sunk + ')'
+
+    def save(self, *args, **kwargs):
+        if self.sunk is None:
+            self.slug = slugify(self.name)
+        else:
+             self.slug = slugify(self.name + " (" + self.sunk + ')')
+        super(Site, self).save(*args, **kwargs)
 
     def last_report(self):
         try:

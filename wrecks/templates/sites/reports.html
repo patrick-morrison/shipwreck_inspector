@@ -15,7 +15,7 @@
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
             <div class="card-body">
                 <h5 class="card-title">{{report.title}}</h5>
-                <p><a href = '{% url 'detail_site' report.site.id %}' class="link-secondary">{{report.site}}</a></p>
+                <p><a href = '{% url 'detail_site' report.site.slug %}' class="link-secondary">{{report.site}}</a></p>
                 <p class="card-text">
                     {% for author in report.authors.all %}
                     <a href ='{% url 'detail_person' author.id %}' class="btn btn-light btn-sm">{{ author }}</a>

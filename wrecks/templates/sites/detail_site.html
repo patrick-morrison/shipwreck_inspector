@@ -121,7 +121,7 @@
 </div>
 <div>
 {% if user.is_authenticated %}
- <a class = 'text-muted' href="{% url 'update_site' site.id %}">Edit this entry</a>
+ <a class = 'text-muted' href="{% url 'update_site' site.slug %}">Edit this entry</a>
 {%endif%}
 </div>
 </div>
@@ -151,12 +151,12 @@
 {%endif%}
 
 
-<h3>Reports <a href="{% url 'create_report' site.id %}" class="btn btn-primary my-2">Add</a></h2>
+<h3>Reports <a href="{% url 'create_report' site.slug %}" class="btn btn-primary my-2">Add</a></h2>
 
 
 <table class="table">
   <caption>Showing {{nReportsDisp}} of {{nReports}} reports.
-    <a href="{% url 'site_reports' site.id %}" class="link-secondary">Click to see all</a> </caption>
+    <a href="{% url 'site_reports' site.slug %}" class="link-secondary">Click to see all</a> </caption>
   <thead>
     <tr>
       <th scope="col">Date</th>

@@ -18,12 +18,12 @@ class site_reports(generic.ListView):
     template_name = "sites/site_reports.html"
 
     def get_queryset(self):
-        self.site = get_object_or_404(Site, id=self.kwargs['pk'])
+        self.site = get_object_or_404(Site, slug=self.kwargs['slug'])
         return Report.objects.filter(site=self.site)
 
     def get_context_data(self, **kwargs):
-        self.site = get_object_or_404(Site, id=self.kwargs['pk'])
-        self.photos = get_object_or_404(Photo, id=self.kwargs['pk'])
+        self.site = get_object_or_404(Site, slug=self.kwargs['slug'])
+        self.photos = get_object_or_404(Photo, slug=self.kwargs['slug'])
         context = super().get_context_data(**kwargs)
         reps = Report.objects.filter(site=self.site)
         context['nReports'] = reps.count()
@@ -31,10 +31,10 @@ class site_reports(generic.ListView):
 
         return context
 
-def CreateReport(request, pk):
+def CreateReport(request, slug):
     form = ReportForm(initial={'authors':request.user})
 
-    Site_id = Site.objects.get(pk=pk)
+    Site_id = Site.objects.get(slug=slug)
 
     if request.method == 'POST':
         filled_form = ReportForm(request.POST, request.FILES)
@@ -44,7 +44,7 @@ def CreateReport(request, pk):
             report.date = filled_form.cleaned_data['date']
             report.file = filled_form.cleaned_data['file']
             report.abstract = filled_form.cleaned_data['abstract']
-            report.site = Site.objects.get(pk=pk)
+            report.site = Site.objects.get(slug=slug)
             report.user = request.user
             report.save()
             authors = filled_form.cleaned_data['authors']
@@ -78,4 +78,4 @@ class DeleteReport(generic.DeleteView):
     model = Report
     template_name = 'sites/delete_report.html'
     def get_success_url(self):
-        return reverse_lazy('detail_site', kwargs={'pk': self.object.site.pk})
+        return reverse_lazy('detail_site', kwargs={'slug': self.object.site.slug})

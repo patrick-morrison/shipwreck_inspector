@@ -4,7 +4,7 @@
 <div class = container style = "max-width:45em">
 </br>
 <h2>{{ report.title }} </h2>
-<p class="lead"><a href = '{% url 'detail_site' report.site.id %}' class="link-dark"'>{{ report.site }}</a>,
+<p class="lead"><a href = '{% url 'detail_site' report.site.slug %}' class="link-dark"'>{{ report.site }}</a>,
      {{ report.date }}</p>
 <div>
   <h5>Authors:</h5>
