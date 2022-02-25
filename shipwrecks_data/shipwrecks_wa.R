@@ -22,7 +22,7 @@ get_wrecked <- function(url) {
   d$built <-  ''
   
   d$built_details <- html %>% 
-    html_element(xpath='/html/body/div[2]/div/div/section[11]/div/div/div[4]/div/div/div/div/div') %>% 
+    html_element(xpath='/html/body/div[2]/div/div/section[11]/div/div/div[2]/div/div/div/div/div') %>% 
     html_text()
   
   d$description <- html %>% 
@@ -89,3 +89,12 @@ wrecks_with_data_clean <- wrecks_with_data %>%
 
 write_csv(wrecks_with_data_clean, 'shipwrecks_wa.csv')
 
+#Other cleaning
+
+#full <- read_csv("shipwrecks_wa_full.csv") %>% select(-built_details)
+#overwrite <- read_csv("shipwrecks_wa.csv") %>% select(id, built_details)
+#amended <- full %>% left_join(overwrite)
+
+#write_csv(amended, 'shipwrecks_wa_amended.csv')
+#wrecks <- read_csv("shipwrecks_wa_seed.csv")
+#wrecks[duplicated(wrecks$name),]
