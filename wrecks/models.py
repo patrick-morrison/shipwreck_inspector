@@ -2,18 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Site(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
-    sunk = models.CharField(max_length=255, null=True, blank=True)
-    built = models.CharField(max_length=255, null=True, blank=True)
-    built_details = models.CharField(max_length=255, null=True, blank=True)
-    description = models.CharField(max_length=255, null=True, blank=True)
-    construction = models.CharField(max_length=255, null=True, blank=True)
-    owner = models.CharField(max_length=500, null=True, blank=True)
-    size = models.CharField(max_length=500, null=True, blank=True)
-    location = models.CharField(max_length=500, null=True, blank=True)
-    underwater = models.CharField(max_length=500, null=True, blank=True)
-    sinking = models.CharField(max_length=500, null=True, blank=True)
+    sunk = models.CharField(max_length=30, null=True, blank=True)
+    built = models.CharField(max_length=30, null=True, blank=True)
+    built_details = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    construction = models.TextField(null=True, blank=True)
+    owner = models.TextField(null=True, blank=True)
+    size = models.TextField(null=True, blank=True)
+    location = models.TextField(null=True, blank=True)
+    underwater = models.TextField(null=True, blank=True)
+    sinking = models.TextField(null=True, blank=True)
     REGION_CHOICES = [
         ('PC', 'Perth Coast'),
         ('RI', 'Rottnest Island'),
@@ -31,7 +31,7 @@ class Site(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     image = models.ImageField(upload_to='site_images/', null=True, blank=True)
-    image_caption = models.CharField(max_length=255, null=True, blank=True)
+    image_caption = models.TextField(null=True, blank=True)
     museum_link = models.URLField(null=True, blank=True)
     dave_link = models.URLField(null=True, blank=True)
 
@@ -58,8 +58,8 @@ class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT, null=True, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, null=True, blank=True)
-    bio = models.TextField(max_length=500, null=True, blank=True)
+    email = models.EmailField(max_length=255, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
     POSITION_CHOICES = [
         ('ME', 'Member'),
         ('GU', 'Guest'),
@@ -79,7 +79,7 @@ class Person(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=1200, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     leaders = models.ManyToManyField(Person)
     date_start = models.DateField()
     date_end = models.DateField()
@@ -114,7 +114,7 @@ class Publication(models.Model):
     date = models.DateField()
     site = models.ManyToManyField(Site, blank=True)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
-    abstract = models.CharField(max_length=1200, null=True, blank=True)
+    abstract = models.TextField(null=True, blank=True)
     file = models.FileField(upload_to='publications', null=True, blank=True)
 
     def __str__(self):

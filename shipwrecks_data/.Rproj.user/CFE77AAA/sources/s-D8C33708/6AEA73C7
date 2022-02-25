@@ -1,0 +1,28 @@
+{
+    "id": "6AEA73C7",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1645766814496.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "id": "2ee2079d13da46d185fc6f8c7a89be7e",
+        "name": "<urlset>",
+        "title": "sites",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1645766814496,
+    "read_only": false,
+    "read_only_alternatives": []
+}

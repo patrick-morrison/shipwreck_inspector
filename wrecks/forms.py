@@ -13,17 +13,23 @@ class ReportForm(forms.ModelForm):
             'date': DateInput,
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
             'project': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
-            'abstract':forms.Textarea,
+            'abstract':forms.Textarea(attrs={'cols': 30, 'rows': 8}),
             }
 
 class SiteForm(forms.ModelForm):
     class Meta:
         model = Site
-        fields = ['name', 'sunk', 'built', 'built_details', 'owner', 'size', 'location', 'description', 'construction',
-              'underwater', 'sinking', 'latitude', 'longitude', 'region', 'image', 'image_caption', 'museum_link', 'dave_link']
+        fields = ['name', 'sunk', 'built', 'description', 'construction', 'size', 'owner', 'built_details',  
+              'sinking', 'underwater', 'location', 'region', 'latitude', 'longitude',  'image', 'image_caption', 'museum_link', 'dave_link']
         widgets = {
-            'underwater':forms.Textarea,
-            'sinking':forms.Textarea,
+            'description':forms.TextInput,
+            'owner':forms.TextInput,
+            'construction':forms.TextInput,
+            'size':forms.TextInput,
+            'built_details':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
+            'sinking':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
+            'underwater':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
+            'location':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
             }
 
 class PublicationForm(forms.ModelForm):
@@ -36,7 +42,7 @@ class PublicationForm(forms.ModelForm):
             'project': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
             'site': autocomplete.ModelSelect2Multiple(url='site-autocomplete'),
             'reports': autocomplete.ModelSelect2Multiple(url='report-autocomplete'),
-            'abstract':forms.Textarea,
+            'abstract':forms.Textarea(attrs={'cols': 30, 'rows': 12}),
             }
 
 class PersonForm(forms.ModelForm):
@@ -56,6 +62,7 @@ class PhotoForm(forms.ModelForm):
             'date': DateInput,
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
             'file':forms.ClearableFileInput(attrs={'multiple': True}),
+            'caption':forms.TextInput,
             }
 
 class PhotoFormSingle(forms.ModelForm):
@@ -65,4 +72,5 @@ class PhotoFormSingle(forms.ModelForm):
         widgets = {
             'date': DateInput,
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            'caption':forms.TextInput,
             }
