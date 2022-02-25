@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 class Site(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     sunk = models.CharField(max_length=30, null=True, blank=True)
     built = models.CharField(max_length=30, null=True, blank=True)

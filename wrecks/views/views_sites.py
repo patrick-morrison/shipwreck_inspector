@@ -23,7 +23,7 @@ class CreateSite(generic.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         super(CreateSite, self).form_valid(form)
-        return redirect(reverse_lazy('detail_site', kwargs={'pk': self.object.pk}))
+        return redirect(reverse_lazy('detail_site', kwargs={'slug': self.object.slug}))
 
 
 class DetailSite(generic.DetailView):
@@ -48,7 +48,7 @@ class UpdateSite(generic.UpdateView):
     form_class = SiteForm
 
     def get_success_url(self):
-        return reverse_lazy('detail_site', kwargs={'pk': self.object.pk})
+        return reverse_lazy('detail_site', kwargs={'slug': self.object.slug})
 
 
 class DeleteSite(generic.DeleteView):
