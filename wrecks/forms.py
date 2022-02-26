@@ -20,7 +20,7 @@ class SiteForm(forms.ModelForm):
     class Meta:
         model = Site
         fields = ['name', 'sunk', 'built', 'description', 'construction', 'size', 'owner', 'built_details',  
-              'sinking', 'underwater', 'location', 'region', 'latitude', 'longitude',  'image', 'image_caption', 'museum_link', 'dave_link']
+              'sinking', 'underwater', 'location', 'region', 'latitude', 'longitude',  'image', 'image_caption', 'sketchfab_link', 'museum_link', 'dave_link']
         widgets = {
             'description':forms.TextInput,
             'owner':forms.TextInput,
@@ -30,6 +30,7 @@ class SiteForm(forms.ModelForm):
             'sinking':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
             'underwater':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
             'location':forms.Textarea(attrs={'cols': 30, 'rows': 4}),
+            'image_caption':forms.Textarea(attrs={'cols': 30, 'rows': 2}),
             }
 
 class PublicationForm(forms.ModelForm):

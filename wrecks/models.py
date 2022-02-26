@@ -34,6 +34,7 @@ class Site(models.Model):
     longitude = models.FloatField(null=True, blank=True)
     image = models.ImageField(upload_to='site_images/', null=True, blank=True)
     image_caption = models.TextField(null=True, blank=True)
+    sketchfab_link = models.URLField(null=True, blank=True)
     museum_link = models.URLField(null=True, blank=True)
     dave_link = models.URLField(null=True, blank=True)
 
