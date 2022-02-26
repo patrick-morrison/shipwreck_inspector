@@ -33,7 +33,7 @@
     <br> 
 <h5>Sites</h2>
    {% for site in publication.site.all %}
-   <button type="button" class="btn btn-outline-dark btn-sm">{{ site }}</button>
+   <a href="{%url 'detail_site' site.slug %}" class="btn btn-outline-dark btn-sm">{{ site }}</a>
    {% endfor %}
 </div>
 {% endif %}
