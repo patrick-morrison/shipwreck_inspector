@@ -26,7 +26,7 @@
 
 {%endif%}
 
-<p>{{ report.abstract }}</p>
+<p>{{ report.abstract | safe | linebreaks }}</p>
 {% if user.is_authenticated %}
 <p class = 'text-center'><a class = 'text-muted' href="{% url 'update_report' report.id %}">Edit this report</a></p>
 {% endif %}

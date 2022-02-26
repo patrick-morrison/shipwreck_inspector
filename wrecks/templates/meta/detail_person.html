@@ -11,7 +11,7 @@
     {{person.get_position_display}}
     </p>
 
-<p> {{person.bio}} </p>
+<p> {{person.bio | safe | linebreaks}} </p>
 
 {% if user.is_authenticated %}
 <p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_person' person.id %}">Edit this person's details</a></p>
