@@ -22,16 +22,25 @@
 {% endif %}
 
 {%if publication.file%}
-<h5>Attachment:</h5>
+<h5>Attachment</h5>
 <p>{{ publication.file.name }}</p>
 <a href="{{ publication.file.url }}" download  class="btn btn-dark float-right">Download</a>
 <br>
 {%endif%}
 
+{% if publication.site.all %}
+<div>   
+    <br> 
+<h5>Sites</h2>
+   {% for site in publication.site.all %}
+   <button type="button" class="btn btn-outline-dark btn-sm">{{ site }}</button>
+   {% endfor %}
+</div>
+{% endif %}
+<br>
 
 {% if publication.project.all %}
 <div>   
-    <br> 
 <h5>Projects</h2>
    {% for project in publication.project.all %}
    <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
