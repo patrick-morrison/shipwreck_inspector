@@ -12,7 +12,6 @@ class sites(FormMixin, generic.ListView):
     paginate_by = 24
     template_name = "sites/sites.html"
     form_class = SiteSearch
-    queryset = Site.objects.all()
     def post(self, request, *args, **kwargs):
         form = SiteSearch(request.POST)
         if form.is_valid():

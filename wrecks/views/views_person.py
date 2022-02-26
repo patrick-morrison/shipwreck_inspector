@@ -1,12 +1,21 @@
 from django.views import generic
+from django.shortcuts import redirect, render
 from ..models import Person, Report, Publication, Project
-from ..forms import PersonForm
+from ..forms import PersonForm, PersonSearch
 from django.urls import reverse_lazy
+from django.views.generic.edit import FormMixin
 
-class persons(generic.ListView):
+class persons(FormMixin, generic.ListView):
     model = Person
     paginate_by = 36
     template_name = "meta/people.html"
+    form_class = PersonSearch
+    def post(self, request, *args, **kwargs):
+        form = PersonSearch(request.POST)
+        if form.is_valid():
+            id = form.cleaned_data['id']
+            person = Person.objects.get(id=id)
+            return redirect(reverse_lazy('detail_person', kwargs={'pk': person.id}))
 
 class CreatePerson(generic.CreateView):
     model = Person

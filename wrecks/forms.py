@@ -79,5 +79,24 @@ class PhotoFormSingle(forms.ModelForm):
 class SiteSearch(forms.Form):
         id = forms.CharField(widget=autocomplete.ListSelect2(
             url='site-autocomplete',
-            attrs={'data-placeholder': 'Search', 'dropdownAutoWidth':'false',
+            attrs={'data-placeholder': 'Search',
+    },))
+
+
+class ReportSearch(forms.Form):
+        id = forms.CharField(widget=autocomplete.ListSelect2(
+            url='report-autocomplete',
+            attrs={'data-placeholder': 'Search',
+    },))
+
+class PersonSearch(forms.Form):
+        id = forms.CharField(widget=autocomplete.ListSelect2(
+            url='person-autocomplete',
+            attrs={'data-placeholder': 'Search',
+    },))
+
+class PublicationSearch(forms.Form):
+        id = forms.CharField(widget=autocomplete.ListSelect2(
+            url='publication-autocomplete',
+            attrs={'data-placeholder': 'Search',
     },))

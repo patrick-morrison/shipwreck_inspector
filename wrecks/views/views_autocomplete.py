@@ -1,4 +1,4 @@
-from ..models import Person, Site, Report, Project
+from ..models import Person, Site, Report, Project, Publication
 from django.contrib.auth.models import User
 from dal import autocomplete
 
@@ -59,5 +59,17 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(firstname__icontains=self.q) | qs.filter(lastname__icontains=self.q)
+
+        return qs
+
+class PublicationAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Publication.objects.none()
+
+        qs = Publication.objects.all()
+
+        if self.q:
+            qs = qs.filter(title__icontains=self.q) | qs.filter(date__icontains=self.q) | qs.filter(abstract__icontains=self.q)
 
         return qs

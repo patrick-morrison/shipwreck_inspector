@@ -3,6 +3,16 @@
 
 <br><div class="container">
 <h2>Reports</h2>
+<p>          
+  <form method = 'post', id = 'search_form'>
+  {%csrf_token%}
+  {% load widget_tweaks %}
+  {{ form.media }}
+  {%render_field form.id %}
+  <script>
+  $('#id_id').on('select2:select', function (e) {
+  $('#search_form').submit();});</script>
+</form></p>
 <br>
 </div>
 

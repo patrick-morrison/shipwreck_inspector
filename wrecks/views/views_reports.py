@@ -1,17 +1,25 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import FormMixin
 
 from ..models import Report, Site, Photo, Publication
 
-from ..forms import ReportForm
+from ..forms import ReportForm, ReportSearch
 
 
-class reports(generic.ListView):
+class reports(FormMixin, generic.ListView):
     model = Report
     paginate_by = 36
     template_name = "sites/reports.html"
     ordering = ['-date']
+    form_class = ReportSearch
+    def post(self, request, *args, **kwargs):
+        form = ReportSearch(request.POST)
+        if form.is_valid():
+            id = form.cleaned_data['id']
+            report = Report.objects.get(id=id)
+            return redirect(reverse_lazy('detail_report', kwargs={'pk': report.id}))
 
 class site_reports(generic.ListView):
     paginate_by = 36

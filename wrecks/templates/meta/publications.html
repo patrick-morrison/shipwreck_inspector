@@ -6,6 +6,16 @@
   {% if user.is_authenticated %}
   <a href="{% url 'create_publication'%}" class="btn btn-primary my-2">Add</a>
   {% endif %}</h2> 
+  <p>          
+    <form method = 'post', id = 'search_form'>
+    {%csrf_token%}
+    {% load widget_tweaks %}
+    {{ form.media }}
+    {%render_field form.id %}
+    <script>
+    $('#id_id').on('select2:select', function (e) {
+    $('#search_form').submit();});</script>
+  </form></p>
 <br>
 </div>
 

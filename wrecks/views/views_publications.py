@@ -1,14 +1,22 @@
 from django.views import generic
 from ..models import Publication
-from ..forms import PublicationForm
+from ..forms import PublicationForm, PublicationSearch
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
+from django.views.generic.edit import FormMixin
 
-class publications(generic.ListView):
+class publications(FormMixin, generic.ListView):
     model = Publication
     paginate_by = 36
     template_name = "meta/publications.html"
     ordering = ['-date']
+    form_class = PublicationSearch
+    def post(self, request, *args, **kwargs):
+        form = PublicationSearch(request.POST)
+        if form.is_valid():
+            id = form.cleaned_data['id']
+            publication = Publication.objects.get(id=id)
+            return redirect(reverse_lazy('detail_publication', kwargs={'pk': publication.id}))
 
 def CreatePublication(request):
     form = PublicationForm()

@@ -94,4 +94,9 @@ urlpatterns += [
         views.UserAutocomplete.as_view(),
         name='user-autocomplete',
     ),
+        path(
+        'publication-autocomplete/',
+        views.PublicationAutocomplete.as_view(),
+        name='publication-autocomplete',
+    ),
 ]
