@@ -16,7 +16,7 @@
 
   <br>
 
-<p>{{ publication.abstract }}</p>
+<p>{{ publication.abstract | safe | linebreaks}}</p>
 {% if user.is_authenticated %}
 <p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_publication' publication.id %}">Edit this publication</a></p>
 {% endif %}
