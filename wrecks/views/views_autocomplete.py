@@ -4,8 +4,6 @@ from dal import autocomplete
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Person.objects.none()
 
         qs = Person.objects.all()
 
@@ -16,8 +14,6 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
 class ProjectAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Project.objects.none()
 
         qs = Project.objects.all()
 
@@ -28,8 +24,6 @@ class ProjectAutocomplete(autocomplete.Select2QuerySetView):
 
 class SiteAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Site.objects.none()
 
         qs = Site.objects.all()
 
@@ -40,8 +34,6 @@ class SiteAutocomplete(autocomplete.Select2QuerySetView):
 
 class ReportAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Report.objects.none()
 
         qs = Report.objects.all()
 
@@ -52,8 +44,6 @@ class ReportAutocomplete(autocomplete.Select2QuerySetView):
 
 class UserAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Report.objects.none()
 
         qs = User.objects.all()
 

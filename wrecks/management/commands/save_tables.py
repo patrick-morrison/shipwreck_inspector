@@ -31,6 +31,10 @@ class Command(BaseCommand):
                 contents = photos_csv('please').content
                 filename = 'tables/photos-' + date + '.csv'
                 default_storage.save(filename, ContentFile(contents))
+
+                contents = projects_csv('please').content
+                filename = 'tables/projects-' + date + '.csv'
+                default_storage.save(filename, ContentFile(contents))
         except:
             self.stdout.write(self.style.ERROR('Save failed.'))
             return
