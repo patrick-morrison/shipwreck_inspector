@@ -46,7 +46,7 @@ class Site(models.Model):
             return self.name + " (" + self.sunk + ')'
 
     class Meta:
-        ordering = ["-order"]
+        ordering = ["order"]
 
     def save(self, *args, **kwargs):
         if self.sunk is None:
