@@ -1,0 +1,82 @@
+{% extends 'wrecks/base.html' %}
+{% block content %}
+
+<div class = container style = "max-width:45em">
+</br>
+<h2>{{ project.title }}</h2>
+<p class="lead">{{ project.start_date }}</a>
+    {{ project.end_date }}</p>
+
+<div>
+   <h5>Leaders</h2>
+   {% for leader in project.leaders.all %}
+   <a href ='{% url 'detail_person' leader.id %}' class="btn btn-outline-dark btn-sm">{{ leader }}</a>
+   {% endfor %}
+</div>
+
+ <br>
+ <h5>Abstract</h2>
+<p>{{ project.description | safe | linebreaks}}</p>
+{% if user.is_authenticated %}
+<p class = 'text-center'><a class = 'text-muted text-end' href="{% url 'update_project' project.slug %}">Edit this project</a></p>
+{% endif %}
+
+{% if project.site.all %}
+<div>   
+   <br> 
+<h5>Sites</h2>
+  {% for site in project.site.all %}
+  <a href="{%url 'detail_site' site.slug %}" class="btn btn-outline-dark btn-sm">{{ site }}</a>
+  {% endfor %}
+</div>
+{% endif %}
+<br>
+
+{%if Publications %}
+<h3>Publications</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for publication in Publications %}
+    <tr>
+      <th scope="row">{{publication.date }}</th>
+      <td><a href="{% url 'detail_publication' publication.id %}" class="link-dark">{{publication.title }}</a></td>
+    </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+{%endif%}
+
+{%if Reports %}
+<h3>Reports</h3>
+<table class="table">
+  <caption>Showing {{nReportsDisp}} of {{nReports}} reports.
+    <a href="" class="link-secondary">Click to see all</a> </caption>
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Title</th>
+      <th scope="col">User</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in Reports %}
+    <tr>
+      <th scope="row">{{report.date }}</th>
+      <td><a href="{% url 'detail_report' report.id %}" class="link-dark">{{report.title }}</a></td>
+      <td>@{{report.user}}</td>
+    </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>
+{%endif%}
+
+{% endblock %}

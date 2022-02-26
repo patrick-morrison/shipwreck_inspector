@@ -64,6 +64,13 @@ urlpatterns = [
     path('photos.csv', views.photos_csv, name = 'photos_csv'),
     path('photo/<int:pk>/edit', views.UpdatePhoto.as_view(), name = 'update_photo'),
     path('photo/<int:pk>/delete', views.DeletePhoto.as_view(), name = 'delete_photo'),
+    #Projects
+    path('projects', views.projects.as_view(), name = 'projects'),
+    path('projects.csv', views.projects_csv, name = 'projects_csv'),
+    path('projects/create', views.CreateProject, name = 'create_project'),
+    path('project/<slug:slug>', views.DetailProject.as_view(), name = 'detail_project'),
+    path('project/<slug:slug>/edit', views.UpdateProject.as_view(), name = 'update_project'),
+    path('project/<slug:slug>/delete', views.DeleteProject.as_view(), name = 'delete_project'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

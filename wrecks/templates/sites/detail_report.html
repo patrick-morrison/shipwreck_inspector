@@ -19,7 +19,7 @@
 <div>
   <h5>Project:</h5>
   {% for project in report.project.all %}
-  <a href ='' class="btn btn-outline-dark btn-sm">{{ project }}</a>
+  <a href ='{% url 'detail_project' project.slug %}' class="btn btn-outline-dark btn-sm">{{ project }}</a>
   {% endfor %}
 </div>
 <br>

@@ -43,7 +43,7 @@
 <div>   
 <h5>Projects</h2>
    {% for project in publication.project.all %}
-   <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
+   <a href="{% url 'detail_project' project.slug %}" class="btn btn-outline-dark btn-sm">{{ project }}</a>
    {% endfor %}
 </div> <br>
 {% endif %}

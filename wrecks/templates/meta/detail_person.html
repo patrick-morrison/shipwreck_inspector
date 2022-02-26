@@ -21,7 +21,7 @@
 <div>
     <h5>Projects (lead)</h2>
     {% for project in projects_lead %}
-    <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
+    <a href="{% url 'detail_project' project.slug %}" class="btn btn-outline-dark btn-sm">{{ project }}</a>
     {% endfor %}
 </div>
 <br>
@@ -31,7 +31,7 @@
 <div>
     <h5>Projects</h2>
     {% for project in projects %}
-    <button type="button" class="btn btn-outline-dark btn-sm">{{ project }}</button>
+    <a href = '{% url 'detail_project' project.slug %}' class="btn btn-outline-dark btn-sm">{{ project }}</a>
     {% endfor %}
 </div>
 {% endif %}

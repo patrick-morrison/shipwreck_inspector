@@ -1,4 +1,4 @@
-from .models import Publication, Report, Site, Person, Photo
+from .models import Publication, Report, Site, Person, Photo, Project
 from dal import autocomplete
 from django import forms
 
@@ -44,6 +44,18 @@ class PublicationForm(forms.ModelForm):
             'site': autocomplete.ModelSelect2Multiple(url='site-autocomplete'),
             'reports': autocomplete.ModelSelect2Multiple(url='report-autocomplete'),
             'abstract':forms.Textarea(attrs={'cols': 30, 'rows': 12}),
+            }
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['title', 'slug', 'description', 'leaders', 'date_start', 'date_end']
+        widgets = {
+            'date': DateInput,
+            'leaders': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
+            'description':forms.Textarea(attrs={'cols': 30, 'rows': 8}),
+            'date_start': DateInput,
+            'date_end': DateInput,
             }
 
 class PersonForm(forms.ModelForm):
@@ -98,5 +110,11 @@ class PersonSearch(forms.Form):
 class PublicationSearch(forms.Form):
         id = forms.CharField(widget=autocomplete.ListSelect2(
             url='publication-autocomplete',
+            attrs={'data-placeholder': 'Search',
+    },))
+
+class ProjectSearch(forms.Form):
+        id = forms.CharField(widget=autocomplete.ListSelect2(
+            url='project-autocomplete',
             attrs={'data-placeholder': 'Search',
     },))

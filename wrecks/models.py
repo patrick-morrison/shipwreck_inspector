@@ -93,6 +93,7 @@ class Person(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.TextField(null=True, blank=True)
     leaders = models.ManyToManyField(Person)
     date_start = models.DateField()
@@ -100,6 +101,8 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        ordering = ["-date_end"]
 
 def report_date_directory_path(instance, filename):
     return 'reports/{0}/{1}/{2}'.format(instance.date.year, instance.date, filename)

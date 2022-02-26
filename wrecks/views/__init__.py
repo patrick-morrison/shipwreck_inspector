@@ -6,3 +6,4 @@ from .views_publications import *
 from .views_api import *
 from .views_person import *
 from .views_photos import *
+from .views_projects import *

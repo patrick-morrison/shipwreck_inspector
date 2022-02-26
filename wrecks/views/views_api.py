@@ -1,6 +1,6 @@
 import json, csv
 from django.http import JsonResponse, HttpResponse
-from ..models import Site, Report, Publication, Person, Photo
+from ..models import Site, Report, Publication, Person, Photo, Project
 from django.shortcuts import render
 
 def data(request):
@@ -124,5 +124,25 @@ def photos_csv(request):
         authors_id = ','.join([str(a.id) for a in r.authors.all()])
 
         writer.writerow([r.id, r.caption, r.date, authors, authors_id, r.report, r.report.id, r.report.site, r.report.site.id, r.user,r.user.id,r.file])
+
+    return response
+
+def projects_csv(request):
+    response = HttpResponse(
+        content_type='text/csv',
+    )
+    response['Content-Disposition'] = 'attachment; filename="projects.csv"'
+
+    writer = csv.writer(response)
+
+    projects = Project.objects.all()
+
+    writer.writerow(['title', 'slug', 'description', 'date_start', 'date_end', 'leaders', 'leaders_id'])
+    
+    for r in projects:
+        leaders = ','.join([str(a) for a in r.leaders.all()])
+        leader_id = ','.join([str(a.id) for a in r.leaders.all()])
+
+        writer.writerow([r.id, r.title, r.slug, r.date_start, r.date_end, leaders, leader_id])
 
     return response
