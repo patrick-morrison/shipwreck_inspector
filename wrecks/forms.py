@@ -75,3 +75,9 @@ class PhotoFormSingle(forms.ModelForm):
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
             'caption':forms.TextInput,
             }
+
+class SiteSearch(forms.Form):
+        id = forms.CharField(widget=autocomplete.ListSelect2(
+            url='site-autocomplete',
+            attrs={'data-placeholder': 'Search', 'dropdownAutoWidth':'false',
+    },))

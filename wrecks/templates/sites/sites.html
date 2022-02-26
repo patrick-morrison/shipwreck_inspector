@@ -5,7 +5,17 @@
     <div class="row py-lg-3">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Shipwrecks of WA</h1>
-        <p class="lead text-muted">Sites visited by MAAWA over the years</p>
+        <p class="lead text-muted">Sites visited by MAAWA over the years
+          <form method = 'post', id = 'search_form'>
+            {%csrf_token%}
+            {% load widget_tweaks %}
+            {{ form.media }}
+            {%render_field form.id %}
+            <script>
+            $('#id_id').on('select2:select', function (e) {
+            $('#search_form').submit();});</script>
+          </form>
+        </p>
         <p>
           <a href="{%url 'create_site' %}" class="btn btn-primary my-2">Add Site</a>
           <a href="{%url 'sites_map' %}" class="btn btn-secondary my-2">Map View</a>
@@ -23,9 +33,12 @@
         <div class="col">
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
               {% if site.image %}
+              <a href="{% url 'detail_site' site.slug %}">
               <img class="card-img-top" src="{{site.image.url}}" alt="{{site.image_caption}}">
+              </a>
               {%endif%}
             <div class="card-body">
+              <a href="{% url 'detail_site' site.slug %}" style="text-decoration: none;color:inherit;">
                 <h5 class="card-title">{{site}}</h5>
                 <p class="card-text">
                 {% if site.built%}Built {{site.built}}.{%endif%}
@@ -33,6 +46,7 @@
                 {% if site.location%}
                 <p class="small card-text mb-2 text-muted">📍 {{site.location}}</p>
                 {%endif%}
+              </a>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div>

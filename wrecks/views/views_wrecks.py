@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 
 
 def home(request):
-    return render(request, 'wrecks/home.html')
+    return(redirect(reverse_lazy('sites')))
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm

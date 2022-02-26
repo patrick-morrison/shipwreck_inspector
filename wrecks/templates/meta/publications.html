@@ -17,12 +17,14 @@
         <div class="col">
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
             <div class="card-body">
+              <a href="{% url 'detail_publication' publication.id %}" style="text-decoration: none;color:inherit;">
                 <h5 class="card-title">{{publication.title}}</h5>
                 <p class="card-text">
                     {% for author in publication.authors.all %}
                     <a href ='{% url 'detail_person' author.id %}' class="btn btn-light btn-sm">{{ author }}</a>
                     {% endfor %}
                 </p>
+              </a>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div>

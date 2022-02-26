@@ -1,15 +1,25 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import FormMixin
 
 from ..models import Publication, Report, Site
 
-from ..forms import SiteForm
+from ..forms import SiteForm, SiteSearch
 
-class sites(generic.ListView):
+class sites(FormMixin, generic.ListView):
     model = Site
     paginate_by = 24
     template_name = "sites/sites.html"
+    form_class = SiteSearch
+    queryset = Site.objects.all()
+    def post(self, request, *args, **kwargs):
+        form = SiteSearch(request.POST)
+        if form.is_valid():
+            id = form.cleaned_data['id']
+            site = Site.objects.get(id=id)
+            return redirect(reverse_lazy('detail_site', kwargs={'slug': site.slug}))
+
 
 def sites_map(request):
     return render(request, 'sites/sites_map.html')

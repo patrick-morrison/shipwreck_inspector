@@ -17,10 +17,12 @@
         <div class="col">
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
             <div class="card-body">
+              <a href="{% url 'detail_person' person.id %}" style="text-decoration: none;color:inherit;">
                 <h5 class="card-title">{{person.first_name}} {{person.last_name}}</h5>
                 {%if person.bio%}
                 <p class = 'card-text'>{{person.bio}}</p>
                 {%endif%}
+              </a>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div>
