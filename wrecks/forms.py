@@ -20,7 +20,7 @@ class SiteForm(forms.ModelForm):
     class Meta:
         model = Site
         fields = ['name', 'sunk', 'built', 'description', 'construction', 'size', 'owner', 'built_details',  
-              'sinking', 'underwater', 'location', 'region', 'latitude', 'longitude',  'image', 'image_caption', 'sketchfab_link', 'museum_link', 'dave_link']
+              'sinking', 'underwater', 'location', 'region', 'latitude', 'longitude',  'image', 'image_caption', 'sketchfab_link', 'museum_link', 'dave_link', 'order']
         widgets = {
             'description':forms.TextInput,
             'owner':forms.TextInput,

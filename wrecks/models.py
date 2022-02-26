@@ -37,12 +37,16 @@ class Site(models.Model):
     sketchfab_link = models.URLField(null=True, blank=True)
     museum_link = models.URLField(null=True, blank=True)
     dave_link = models.URLField(null=True, blank=True)
+    order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         if self.sunk is None:
             return self.name
         else:
             return self.name + " (" + self.sunk + ')'
+
+    class Meta:
+        ordering = ["-order"]
 
     def save(self, *args, **kwargs):
         if self.sunk is None:
