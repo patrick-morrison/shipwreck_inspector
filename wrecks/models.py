@@ -57,7 +57,7 @@ class Site(models.Model):
 
     def last_report(self):
         try:
-            return Report.objects.filter(site=self.pk).order_by('-date').first().date
+            return Report.objects.filter(site=self.pk).latest('date').date
         except:
             return 'never'
 
