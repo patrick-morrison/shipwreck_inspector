@@ -2,7 +2,7 @@
 {% block content %}
 
 <br><div class="container">
-<h2>Reports</h2>
+<h2>Reports <a href="{% url 'create_report' 'choose_site' %}" class="btn btn-primary my-2">Add</a></h2>
 <p>          
   <form method = 'post', id = 'search_form'>
   {%csrf_token%}

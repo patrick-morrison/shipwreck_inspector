@@ -40,19 +40,22 @@ class site_reports(generic.ListView):
         return context
 
 def CreateReport(request, slug):
-    form = ReportForm(initial={'authors':request.user})
-
-    Site_id = Site.objects.get(slug=slug)
-
+    if slug == 'choose_site':
+        form = ReportForm(initial={'authors':request.user})
+    else:
+        Site_id = Site.objects.get(slug=slug)
+        form = ReportForm(initial={'authors':request.user,
+        'site':Site_id})
+    
     if request.method == 'POST':
         filled_form = ReportForm(request.POST, request.FILES)
         if filled_form.is_valid():
             report = Report()
+            report.site = filled_form.cleaned_data['site']
             report.title = filled_form.cleaned_data['title']
             report.date = filled_form.cleaned_data['date']
             report.file = filled_form.cleaned_data['file']
             report.abstract = filled_form.cleaned_data['abstract']
-            report.site = Site.objects.get(slug=slug)
             report.user = request.user
             report.save()
             authors = filled_form.cleaned_data['authors']
@@ -62,7 +65,7 @@ def CreateReport(request, slug):
             report.save()
             return redirect('detail_report', report.pk)
 
-    return render(request, 'sites/create_report.html', {'form': form, 'site':Site_id})
+    return render(request, 'sites/create_report.html', {'form': form})
 
 class DetailReport(generic.DetailView):
     model = Report

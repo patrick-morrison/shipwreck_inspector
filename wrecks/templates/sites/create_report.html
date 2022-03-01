@@ -2,7 +2,7 @@
 {% block content %}
 <div class = 'container'>
     <br>
-    <h2>Add report for {{site.name}} {{site.sunk}}</h2>
+    <h2>Add report</h2>
 <form enctype='multipart/form-data' method = 'post'>
 
     {%csrf_token%}
@@ -13,8 +13,11 @@
     <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}'>
         {{field.errors}}
         {{field.label_tag}}
+        {%if field.name == 'site'%}
+        {%render_field field%}
+        {%else%}
         {%render_field field class='form-control'%}
-        
+        {%endif%}
 
     </div>
     {%endfor%}
