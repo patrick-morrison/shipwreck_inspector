@@ -17,7 +17,9 @@
           </form>
         </p>
         <p>
+          {% if user.is_authenticated %}
           <a href="{%url 'create_site' %}" class="btn btn-primary my-2">Add Site</a>
+          {% endif %}
           <a href="{%url 'sites_map' %}" class="btn btn-secondary my-2">Map View</a>
         </p>
       </div>
