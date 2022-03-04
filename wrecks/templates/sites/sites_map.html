@@ -8,15 +8,23 @@
    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
-
-   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
-   <script src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
   </head>
 
   <style>
-#map {
-    height: calc(100vh - 58px);
+    html { 
+        height: 100%;
+    }
+    body { 
+        height: calc(100% - 56px);
+    }
+    #map {
+        height:100%;
+    }     
+.leaflet-popup-content-wrapper,.leaflet-popup-content
+{
+    font-size:14px;
+    line-height:4px;
+    border-radius: 4px;
 }
 
   </style>
@@ -31,13 +39,27 @@
   }).addTo(map);
   
   
-  var wrecks = new L.geoJSON().bindTooltip(function (layer) {
-    return layer.feature.properties.name + " " + layer.feature.properties.sunk});
+  var geojsonMarkerOptions = {
+    radius: 80,
+    fillColor: "#2D85CD",
+    color: "#1B54A8",
+    weight: 5,
+    opacity: .6,
+    fillOpacity: 0.4
+};
 
-    var markers = L.markerClusterGroup();
-    markers.addLayer(wrecks);
-    markers.addTo(map);
-    wrecks.addTo(map);
+var wrecks = new L.geoJSON("", {
+    pointToLayer: function (feature, latlng) {
+        return L.circle(latlng, geojsonMarkerOptions);
+    }}).bindPopup(function (layer) {
+  return "<b><a href ='" + layer.feature.properties.slug
+  +"'style='color: black;''>" +
+  layer.feature.properties.name +
+   " " + layer.feature.properties.sunk +
+  "</a></b>"},
+  {closeButton: false});
+
+wrecks.addTo(map);
   
   $.ajax({
   dataType: "json",

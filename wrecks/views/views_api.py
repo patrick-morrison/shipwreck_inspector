@@ -12,7 +12,7 @@ def sites_json(request):
         'type': 'FeatureCollection',
         'features':[{
             'type': 'Feature','properties': {
-                'name':s.name, 'sunk': s.sunk, 'pk':s.pk,},
+                'name':s.name, 'sunk': s.sunk, 'slug':s.slug,},
             'geometry' : {
                 'type': 'Point',
                 'coordinates': [s.longitude, s.latitude]
