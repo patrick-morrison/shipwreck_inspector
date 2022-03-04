@@ -151,7 +151,9 @@
 {%endif%}
 
 
-<h3>Reports <a href="{% url 'create_report' site.slug %}" class="btn btn-primary my-2">Add</a></h2>
+<h3>Reports
+   {% if user.is_authenticated %}<a href="{% url 'create_report' site.slug %}" class="btn btn-primary my-2">Add</a>{%endif%}
+  </h2>
 
 
 <table class="table">
