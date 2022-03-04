@@ -8,6 +8,8 @@
    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
   </head>
 
   <style>
@@ -60,6 +62,12 @@ var wrecks = new L.geoJSON("", {
   {closeButton: false});
 
 wrecks.addTo(map);
+L.control.locate({
+  locateOptions: {
+               maxZoom: 14,
+               enableHighAccuracy: true
+}
+}).addTo(map);
   
   $.ajax({
   dataType: "json",
