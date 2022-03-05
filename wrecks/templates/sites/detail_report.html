@@ -108,7 +108,10 @@
           {%for author in photo.authors.all%}
           <a href class="link-secondary" ='{% url 'detail_person' author.id %}'>{{ author }}</a>,
           {% endfor %}
-          {{photo.date}}</p>
+          {{photo.date}}
+          {% if user.is_authenticated %}
+          <a href="{% url 'update_photo' photo.id %}" class="text-muted">(edit)</a>
+          {% endif %}</p>
         </div>
         <div>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
