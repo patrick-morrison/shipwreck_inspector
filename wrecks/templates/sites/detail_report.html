@@ -96,20 +96,24 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{photo.caption}}</h5>
+        <h5 class="modal-title">{{photo.caption}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center d-block">
         <img class="img-fluid" style="max-height: 70vh;" src="{{photo.file.url}}" alt="{{photo.caption}}">
       </div>
-      <div class="modal-footer">
-        <p><small class="text-muted">
+      <div class="modal-footer d-flex justify-content-between align-items-center">
+        <div>
+        <p class="text-muted">
           {%for author in photo.authors.all%}
           <a href class="link-secondary" ='{% url 'detail_person' author.id %}'>{{ author }}</a>,
           {% endfor %}
           {{photo.date}}</p>
+        </div>
+        <div>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href = '{{photo.file.url}}' class="btn btn-primary">Download image</a>
+        <a href = '{{photo.file.url}}' class="btn btn-primary">Download</a>
+      </div>
       </div>
     </div>
   </div>
