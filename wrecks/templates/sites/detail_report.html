@@ -68,7 +68,7 @@
   {% for photo in photos.all %}
   <div class="col">
   <div class="card shadow-xs" style="max-width: 22rem;">
-    <img class="card-img-top" src="{{photo.file.url}}" alt="{{photo.caption}}">
+    <img class="card-img-top" src="{{photo.file.url}}" alt="{{photo.caption}}" data-bs-toggle="modal" data-bs-target="#modal{{photo.id}}">
     <div class="card-body">
       <p class = card-subtitle>{{photo.caption}}</p> 
       <p class="card-text"><small class="text-muted">
@@ -89,6 +89,32 @@
 </div>
 <br>
 {%endif%}
+
+{% for photo in photos.all %}
+<!-- Modal -->
+<div class="modal fade" id="modal{{photo.id}}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{photo.caption}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center d-block">
+        <img class="img-fluid" style="max-height: 70vh;" src="{{photo.file.url}}" alt="{{photo.caption}}">
+      </div>
+      <div class="modal-footer">
+        <p><small class="text-muted">
+          {%for author in photo.authors.all%}
+          <a href class="link-secondary" ='{% url 'detail_person' author.id %}'>{{ author }}</a>,
+          {% endfor %}
+          {{photo.date}}</p>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href = '{{photo.file.url}}' class="btn btn-primary">Download image</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% if user.is_authenticated %}
 <p><a class = 'btn btn-primary' href="{% url 'create_photo' report.id %}">Add photos</a></p>
 {% endif %}
