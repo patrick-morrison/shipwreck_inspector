@@ -1,10 +1,12 @@
 from django import forms
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.contrib.auth import authenticate, login, models
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from ..forms import PreferencesForm
 
 
 def home(request):
@@ -24,17 +26,16 @@ class SignUp(generic.CreateView):
         return view
 
 def preferences(request):
-    form = UserChangeForm
+    form = PreferencesForm
+    user = get_object_or_404(User, pk=request.user.pk)
     if request.method == 'POST':
-        filled_form = UserChangeForm(request.POST, instance=request.user)
+        filled_form = PreferencesForm(request.POST, instance=user)
         if filled_form.is_valid():
-            user = request.user
-            user.email = filled_form.cleaned_data['email1']
-            user.save()
+            filled_form.save()
             return redirect('preferences')
     return render(request, 'registration/preferences.html',
      {'user': request.user,
-     'form' : form(initial={'email': request.user.email,
-     'username':request.user.username },)
+     'form' : form(initial={'email': user.email,
+     'username':user.username },)
     })
     

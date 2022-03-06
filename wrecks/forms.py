@@ -1,6 +1,8 @@
 from .models import Publication, Report, Site, Person, Photo, Project
 from dal import autocomplete
 from django import forms
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -119,3 +121,9 @@ class ProjectSearch(forms.Form):
             url='project-autocomplete',
             attrs={'data-placeholder': 'Search',
     },))
+
+
+class PreferencesForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
