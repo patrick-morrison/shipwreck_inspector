@@ -21,3 +21,6 @@ class SignUp(generic.CreateView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return view
+
+def preferences(request):
+    return render(request, 'registration/preferences.html', {'user': request.user})

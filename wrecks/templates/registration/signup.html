@@ -5,6 +5,7 @@
     <br/>
     <h2>Create an account</h2>
     <p>Creating an account lets you add inspection reports.</p>
+    <p>Have an account? <a href = "{% url 'login' %}">Log in</a></p>
     <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}' style="max-width: 400px;">
         <form method = 'post'>
     
@@ -24,9 +25,11 @@
             <br>
         <button type="submit" class='btn btn-primary'>Sign up</button>
     </div>
-    </div>
+    
 
     </form>
+    
+</div>
 
 </div>
 
