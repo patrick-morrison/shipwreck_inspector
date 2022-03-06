@@ -4,8 +4,27 @@
 <div class="container">
     <br/>
     <h2>Preferences</h2>
-    <p class="lead">@{{user.username}}</p>
-    <a href="{%url 'password_change'%}" class="btn btn-primary">Change password</a>
+    <p class="lead"><span class="badge bg-success">@{{user.username}}</span></p>
+    <p>📧 {{user.email}}</p>
+    <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}' style="max-width: 400px;">
+        <form method = 'post'>
+    
+            {% csrf_token %}
+    
+            {% load widget_tweaks %}
+
+                {{form.username.errors}}
+                {{form.username.label_tag}}
+                {%render_field form.username class='form-control' placeholder=user.username%}
+        
+                {{form.email.errors}}
+                {{form.email.label_tag}}
+                {%render_field form.email class='form-control' placeholder=user.email%}
+    
+            <button type="submit" class='btn btn-danger'>Save username and email</button>
+        </div>
+        <br>
+    <a href="{%url 'password_change'%}" class="link-primary">Change password</a>
     
 </div>
 </div>
