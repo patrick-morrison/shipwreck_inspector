@@ -58,6 +58,10 @@ You can use the heroku-scheduler addon to make regular backups. The following ma
 ```bash
 python manage.py save_tables
 ```
+Other environment settings are
+TZ = Australia/Perth
+EMAIL_USER = gmail username
+EMAIL_PASSWORD = gmail password
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
