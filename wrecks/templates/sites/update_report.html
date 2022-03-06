@@ -15,7 +15,11 @@
             {%for field in form%}
                 {{field.errors}}
                 {{field.label_tag}}
+                {%if field.name == 'site'%}
+                {%render_field field%}<br>
+                {%else%}
                 {%render_field field class='form-control'%}
+                {%endif%}
                 
             {%endfor%}
             <p class="text-muted">Limit 1 attachment (ideally a document). Images can be added on the report details page.</p>

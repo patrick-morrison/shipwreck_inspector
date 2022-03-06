@@ -64,10 +64,10 @@ class ProjectForm(forms.ModelForm):
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ['first_name', 'last_name', 'position', 'user', 'email', 'bio'] 
+        fields = ['user', 'first_name', 'last_name', 'position', 'email', 'bio'] 
         widgets = {
             'bio':forms.Textarea,
-            'user': autocomplete.ModelSelect2Multiple(url='user-autocomplete'),
+            'user': autocomplete.ModelSelect2(url='user-autocomplete'),
             }            
 
 class PhotoForm(forms.ModelForm):

@@ -13,18 +13,23 @@
             {{ form.media }}
             
             {%for field in form%}
-                {{field.errors}}
-                {{field.label_tag}}
-                {%render_field field class='form-control'%}
+            {{field.errors}}
+            {{field.label_tag}}
+            {%if field.name == 'user'%}
+            {%render_field field%}<br>
+            {%else%}
+            {%render_field field class='form-control'%}
+            {%endif%}
                 
             {%endfor%}
             <br>
             <button type="submit" class = 'btn btn-primary'>Save</button>
 </form>
+</div>
 <br>
 <a href = {% url 'delete_person' person.id %} class ='btn btn-danger'>Delete this person's page</a>
-<br>
-</div>
+<br/>
+
 </div>
 
 {% endblock %}
