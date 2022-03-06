@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from ..forms import PreferencesForm
+from ..models import Person
 
 
 def home(request):
@@ -28,14 +29,16 @@ class SignUp(generic.CreateView):
 def preferences(request):
     form = PreferencesForm
     user = get_object_or_404(User, pk=request.user.pk)
+    person = get_object_or_404(Person, user=request.user)
     if request.method == 'POST':
         filled_form = PreferencesForm(request.POST, instance=user)
         if filled_form.is_valid():
             filled_form.save()
             return redirect('preferences')
     return render(request, 'registration/preferences.html',
-     {'user': request.user,
+     {'user': request.user, 'person' : person,
      'form' : form(initial={'email': user.email,
-     'username':user.username },)
+     'username':user.username,
+     'person': person},)
     })
     
