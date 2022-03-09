@@ -33,7 +33,7 @@
 
         {% for site in object_list %}
         <div class="col">
-            <div class="card shadow-sm h-100" style="max-width: 23rem;">
+            <div class="card shadow-sm h-100 mx-auto" style="max-width: 23rem;">
               {% if site.image %}
               <a href="{% url 'detail_site' site.slug %}">
               <img class="card-img-top" src="{{site.image.url}}" alt="{{site.image_caption}}">
