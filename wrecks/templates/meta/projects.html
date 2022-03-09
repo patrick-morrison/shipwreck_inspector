@@ -26,6 +26,11 @@
         {% for project in object_list %}
         <div class="col">
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
+              {% if project.image %}
+              <a href="{% url 'detail_project' project.id %}">
+              <img class="card-img-top" src="{{project.image.url}}" alt="{{project.image_caption}}">
+              </a>
+              {%endif%}
             <div class="card-body">
               <a href="{% url 'detail_project' project.slug %}" style="text-decoration: none;color:inherit;">
                 <h5 class="card-title">{{project.title}}</h5>

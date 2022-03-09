@@ -13,9 +13,13 @@
             {{ form.media }}
             
             {%for field in form%}
-                {{field.errors}}
-                {{field.label_tag}}
-                {%render_field field class='form-control'%}
+            {{field.errors}}
+            {{field.label_tag}}
+            {%if field.name == 'featured'%}
+            {%render_field field class='form-check-input'%}<br>
+            {%else%}
+            {%render_field field class='form-control'%}
+            {%endif%}
                 
             {%endfor%}
             <br>

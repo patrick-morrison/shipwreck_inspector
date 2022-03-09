@@ -25,6 +25,11 @@
         {% for report in object_list %}
         <div class="col">
             <div class="card shadow-sm h-100" style="max-width: 23rem;">
+              {% if report.image %}
+              <a href="{% url 'detail_report' report.id %}">
+              <img class="card-img-top" src="{{report.image.file.url}}" alt="{{report.image.caption}}">
+              </a>
+              {%endif%}
             <div class="card-body">
               <a href="{% url 'detail_report' report.id %}" style="text-decoration: none;color:inherit;">
                 <h5 class="card-title">{{report.title}}</h5>

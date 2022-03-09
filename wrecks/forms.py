@@ -52,13 +52,14 @@ class PublicationForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'slug', 'description', 'leaders', 'date_start', 'date_end']
+        fields = ['title', 'slug', 'description', 'leaders', 'date_start', 'date_end', 'link', 'image', 'image_caption']
         widgets = {
             'date': DateInput,
             'leaders': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),
             'description':forms.Textarea(attrs={'cols': 30, 'rows': 8}),
             'date_start': DateInput,
             'date_end': DateInput,
+            'image_caption':forms.Textarea(attrs={'cols': 30, 'rows': 2}),
             }
 
 class PersonForm(forms.ModelForm):
@@ -84,7 +85,7 @@ class PhotoForm(forms.ModelForm):
 class PhotoFormSingle(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ['caption', 'date', 'authors', 'file']
+        fields = ['caption', 'date', 'authors', 'file', 'featured']
         widgets = {
             'date': DateInput,
             'authors': autocomplete.ModelSelect2Multiple(url='person-autocomplete'),

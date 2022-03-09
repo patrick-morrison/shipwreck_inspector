@@ -98,6 +98,9 @@ class Project(models.Model):
     leaders = models.ManyToManyField(Person)
     date_start = models.DateField()
     date_end = models.DateField()
+    link = models.URLField(null=True, blank=True)
+    image = models.ImageField(upload_to='project_images/', null=True, blank=True)
+    image_caption = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -121,6 +124,11 @@ class Report(models.Model):
         return self.date.strftime("%Y-%m-%d") + " " + self.site.name + " " + self.title
     class Meta:
         ordering = ["-date"]
+    def image(self):
+        try:
+            return Photo.objects.filter(report=self.pk, featured=True).latest('date')
+        except:
+            return ""
 
 
 class Publication(models.Model):
@@ -150,6 +158,7 @@ class Photo(models.Model):
     report = models.ForeignKey(Report, on_delete=models.RESTRICT)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     file = models.ImageField(upload_to=photo_date_directory_path, null=True, blank=True)
+    featured = models.BooleanField()
 
     def __str__(self):
         return self.date.strftime("%Y-%m-%d") + " " + self.report.title + " " + self.caption

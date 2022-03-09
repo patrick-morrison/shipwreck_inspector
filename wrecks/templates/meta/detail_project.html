@@ -7,6 +7,16 @@
 <p class="lead">{{ project.start_date }}</a>
     {{ project.end_date }}</p>
 
+{% if project.image %}
+
+<div class="card mb-3">
+  <img class="card-img-top" src="{{project.image.url}}" alt="{{project.image_caption}}">
+  <div class="card-body">
+    <p class="card-text"><small class="text-muted">{{project.image_caption}}</small></p>
+  </div>
+</div>
+{% endif %}
+
 <div>
    <h5>Leaders</h2>
    {% for leader in project.leaders.all %}

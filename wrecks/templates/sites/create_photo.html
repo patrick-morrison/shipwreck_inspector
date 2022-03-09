@@ -15,7 +15,11 @@
     <div class = 'form-group {%if field.errors%}alert alert-danger{%endif%}'>
         {{field.errors}}
         {{field.label_tag}}
+        {%if field.name == 'featured'%}
+        {%render_field field class='form-check-input'%}<br>
+        {%else%}
         {%render_field field class='form-control'%}
+        {%endif%}
 
     </div>
     {%endfor%}
