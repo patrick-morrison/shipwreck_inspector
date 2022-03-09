@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card shadow-sm h-100 mx-auto" style="max-width: 23rem;">
               {% if project.image %}
-              <a href="{% url 'detail_project' project.id %}">
+              <a href="{% url 'detail_project' project.slug %}">
               <img class="card-img-top" src="{{project.image.url}}" alt="{{project.image_caption}}">
               </a>
               {%endif%}
