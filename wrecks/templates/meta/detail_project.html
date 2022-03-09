@@ -3,9 +3,8 @@
 
 <div class = container style = "max-width:45em">
 </br>
-<h2>{{ project.title }}</h2>
-<p class="lead">{{ project.start_date }}</a>
-    {{ project.end_date }}</p>
+<h2>{{ project.title }} </h2>
+<p class="lead">{{ project.date_start }} - {{ project.date_start }} {%if project.link%}<a href="{{project.link}}" class="btn btn-light btn-sm">🔗 Project Webpage</a>{%endif%}</p>
 
 {% if project.image %}
 
