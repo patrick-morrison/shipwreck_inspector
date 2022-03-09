@@ -180,9 +180,7 @@
 
 </br>
 {% if site.latitude and site.longitude %}
-<style>
-  #map { height: 400px; }
-</style>
+
 
 <head>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -194,6 +192,18 @@
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 </head>
+
+<style>
+  #map { height: 400px; }
+  .leaflet-popup-content-wrapper,.leaflet-popup-content{
+    font-size:12px;
+    line-height:4px;
+    border-radius: 4px;
+    margin-right: 6px;
+    margin-left: 6px;
+    opacity: 0.95;
+    }
+</style>
 
 <div id="map"></div>
 </br>
@@ -226,8 +236,13 @@ var wrecks = new L.geoJSON("", {
     pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);
     }
-}).bindTooltip(function (layer) {
-  return layer.feature.properties.name + " " + layer.feature.properties.sunk});
+}).bindPopup(function (layer) {
+  return "<a href ='" + layer.feature.properties.slug
+  +"'style='color: black;text-decoration:none;''>" +
+  layer.feature.properties.name +
+   " " + layer.feature.properties.sunk +
+  "</a>"},
+  {closeButton: false});
 
 wrecks.addTo(map);
 
